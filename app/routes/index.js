@@ -43,7 +43,7 @@ class UpperNetwork extends Component {
 
         <Router>
 					<Stack>
-						<Scene hideNavBar>
+						<Scene key='auhenticateScene' hideNavBar>
 							<Stack key="authenticate">
 								<Scene
 									key="login"

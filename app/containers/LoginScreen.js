@@ -49,7 +49,8 @@ class LoginScreen extends Component {
   render() {
     const { email, password } = this.state;
     const { user } = this.props;
-
+    const locale = 'en';
+    
     return (
       <Container>
 				<Content>
@@ -88,18 +89,18 @@ class LoginScreen extends Component {
 						<Body>
 							<View padder>
 								<Button onPress={this.loginEmail}>
-									<Text>{translate('Login', 'en')}</Text>
+									<Text>{translate('Login', locale)}</Text>
 								</Button>
 							</View>
 							<View style={{flex: 1}} />
 							<View padder>
 	              <Text onPress={() => Actions.push('forgotPassword')}>
-									{translate('ForgotPassword', 'en')}
+									{translate('ForgotPassword', locale)}
 								</Text>
 		          </View>
 							<View padder>
 								<Button onPress={() => Actions.push('signUp')}>
-									<Text>{translate('Signup', 'en')}</Text>
+									<Text>{translate('Signup', locale)}</Text>
 								</Button>
 							</View>
 						</Body>

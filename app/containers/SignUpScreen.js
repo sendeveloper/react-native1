@@ -11,7 +11,8 @@ import {
 	Button,
 	Body,
 	CheckBox,
-	ListItem
+	ListItem,
+	View
 } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -126,12 +127,10 @@ class SignUpScreen extends React.Component {
       <Container>
         <Content padder>
 					<View padder>
-						<Body>
-		          <Header
-		            title="Welcome"
-		            content="We're glad to welcome you to the community. There's only a few questions and you'll be on your way."
-		          />
-						</Body>
+					  <Header
+	            title="Welcome"
+	            content="We're glad to welcome you to the community. There's only a few questions and you'll be on your way."
+	          />
 					</View>
 					{register.errorMessage && <Messages message={register.errorMessage} />}
 					<Spacer size={40} />
@@ -139,112 +138,114 @@ class SignUpScreen extends React.Component {
 						<Body>
 							<Item regular>
 	              <Input
-	                placeholder={translate('Invite Code')}
+	                placeholder={translate('Invite Code', locale)}
 									onChangeText={v => this.handleChange('inviteCode', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('First Name')}
+	                placeholder={translate('First Name', locale)}
 									onChangeText={v => this.handleChange('firstName', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate("Last Name")}
+	                placeholder={translate('Last Name', locale)}
 									onChangeText={v => this.handleChange('lastName', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('User Name')}
+	                placeholder={translate('User Name', locale)}
 									onChangeText={v => this.handleChange('lastName', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
 									secureTextEntry
-	                placeholder={translate('Email')}
+	                placeholder={translate('Email', locale)}
 									onChangeText={v => this.handleChange('emailAddress', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('Password')}
+	                placeholder={translate('Password', locale)}
 									onChangeText={v => this.handleChange('password', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
 									secureTextEntry
-	                placeholder={translate('Confirm Password')}
+	                placeholder={translate('Confirm Password', locale)}
 									onChangeText={v => this.handleChange('passwordConfirm', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
 									secureTextEntry
-	                placeholder={translate('Phone Number')}
+	                placeholder={translate('Phone Number', locale)}
 									onChangeText={v => this.handleChange('phoneNumber', v)}
 	              />
 	            </Item>
-							<ListItem>
-	              <CheckBox checked={true} onPress={v => this.handleChange('allowNotifications', v)} />
+							<Item>
+	              <CheckBox checked={true}
+	              	onPress={v => this.handleChange('allowNotifications', v)} />
 	                <Body>
 	                  <Text>Allow Notifications</Text>
 	                </Body>
-	            </ListItem>
-							<ListItem>
-	              <CheckBox checked={true} onPress={v => this.handleChange('acceptedTerms', v)} />
+	            </Item>
+							<Item>
+	              <CheckBox checked={true} 
+	              	onPress={v => this.handleChange('acceptedTerms', v)} />
 	                <Body>
-	                  <Text>Accepted Terms</Text>
+	                  <Text>{translate('Accepted Terms', locale)}</Text>
 	                </Body>
-	            </ListItem>
+	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('School')}
+	                placeholder={translate('School', locale)}
 									onChangeText={v => this.handleChange('school', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('Club')}
+	                placeholder={translate('Club', locale)}
 									onChangeText={v => this.handleChange('club', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('City')}
+	                placeholder={translate('City', locale)}
 									onChangeText={v => this.handleChange('city', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('State')}
+	                placeholder={translate('State', locale)}
 									onChangeText={v => this.handleChange('state', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('College Major')}
+	                placeholder={translate('College Major', locale)}
 									onChangeText={v => this.handleChange('collegeMajor', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('Career Location')}
+	                placeholder={translate('Career Location', locale)}
 									onChangeText={v => this.handleChange('careerLocation', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('Objective')}
+	                placeholder={translate('Objective', locale)}
 									onChangeText={v => this.handleChange('objective', v)}
 	              />
 	            </Item>
 							<Item regular>
 	              <Input
-	                placeholder={translate('Chapter')}
+	                placeholder={translate('Chapter', locale)}
 									onChangeText={v => this.handleChange('chapter', v)}
 	              />
 	            </Item>

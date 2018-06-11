@@ -19,6 +19,7 @@ function loginCall({email, password}) {
           reject({status: userData.error_description || userData.error});
         }
         else {
+          userData['status'] = '';
           resolve(userData);
         }
       })
@@ -31,7 +32,6 @@ function loginCall({email, password}) {
 function *watchLoginRequest() {
   while(true) {
     const { email, password } = yield take(types.LOGIN.REQUEST);
-
     try {
       const payload = {
         email,

@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { Router, Scene, Stack } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 import DefaultProps from '../constants/navigation';
 import AppConfig from '../constants/config';
-
 import AuthScenes from './auth';
 // import LoginScreen from '../containers/LoginScreen';
 import HomeScreen from '../containers/HomeScreen';
@@ -34,13 +34,13 @@ class TabIcon extends Component {
 class UpperNetwork extends Component {
   componentDidMount() {
     StatusBar.setBarStyle('light-content');
+    if (this.props.isAuthenticated) {
+      Actions.push('home')
+    }
   }
 
   render() {
-    const { isAuthenticated } = this.props;
-
     return (
-
         <Router>
 					<Stack>
 						<Scene key='auhenticateScene' hideNavBar>
@@ -50,7 +50,6 @@ class UpperNetwork extends Component {
 									component={LoginScreen}
 									analyticsDesc="Login"
 									hideNavBar
-									initial={!isAuthenticated}
 								/>
 								<Scene
 									back

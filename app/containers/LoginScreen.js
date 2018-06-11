@@ -22,10 +22,10 @@ import {
   H3
 } from 'native-base';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as loginActions from '../actions/loginActions';
 import { Actions } from 'react-native-router-flux';
 import { StyleSheet } from 'react-native';
+import { bindActionCreators } from 'redux';
+import * as loginActions from '../actions/loginActions';
 import { translate } from '../i18n';
 import Messages from '../components/Messages';
 import Header from '../components/Header';

@@ -5,20 +5,12 @@ export default {
   'Confirm Password': 'Confirm Password',
   Signup: 'SIGN UP',
   ForgotPassword: 'Forgot Password?',
-	'Invite Code': 'Invite Code',
-	'User Name': 'User Name',
+
  	'Email Address': 'Email Address',
 	'Phone Number': 'Phone Number',
 	'First Name': 'First Name',
 	'Last Name': 'Last Name',
 	'Phone Number': 'Phone Number',
-	'Accepted Terms': 'Accepted Terms',
-	'School': 'School',
-	'Club': 'Club',
-	'City': 'City',
-	'State': 'State',
-	'College Major': 'College Major',
-	'Career Location': 'Career Location',
-	'Objective': 'Objective',
-	'Chapter': 'Chapter'
+	'Confirm Password': 'Confirm Password',
+	'Next': 'Next'
 };

@@ -54,7 +54,7 @@ class UpperNetwork extends Component {
 								<Scene
 									back
 									key="signUp"
-									title="SIGN UP"
+									title="Create Account"
 									{...DefaultProps.navbarProps}
 									component={SignUpScreen}
 								/>

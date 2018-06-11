@@ -31,43 +31,22 @@ function registerCall({email, password}) {
 function *watchRegisterRequest() {
   while(true) {
     const {
-			inviteCode,
-			userName,
 			emailAddress,
-			password,
-			passwordConfirm,
-			firstName,
-			lastName,
-			phoneNumber,
-			allowNotifications,
-			acceptedTerms,
-			school,
-			club,
-			city,
-			careerLocation,
-			objective,
-			chapter
+      password,
+      passwordConfirm,
+      firstName,
+      lastName,
+      phoneNumber,
 		} = yield take(types.REGISTER.REQUEST);
 
     try {
       const payload = {
-				inviteCode,
-				userName,
-				emailAddress,
-				password,
-				passwordConfirm,
-				firstName,
-				lastName,
-				phoneNumber,
-				allowNotifications,
-				acceptedTerms,
-				school,
-				club,
-				city,
-				careerLocation,
-				objective,
-				chapter
-
+        emailAddress,
+        password,
+        passwordConfirm,
+        firstName,
+        lastName,
+        phoneNumber,
       }
       const response = yield call(registerCall, payload);
 

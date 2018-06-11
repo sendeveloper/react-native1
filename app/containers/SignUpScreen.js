@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as registerActions from '../actions/registerActions';
 import { Actions } from 'react-native-router-flux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import { translate } from '../i18n';
 import Loading from './Loading';
 import Messages from '../components/Messages';
@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
   button: {
   	backgroundColor: '#7E888D',
   },
+  validateButton: {
+  	backgroundColor: '#358A83',
+  },
   buttonText: {
   	color: '#FFF',
   	fontSize: 18
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
   	width: 35
   },
   input: { 	
-  	color: '#000'
+  	color: '#053C5C'
   },
   note: {
   	fontSize: 10,
@@ -66,8 +69,10 @@ class SignUpScreen extends React.Component {
   // }
 	//
 	static navigationOptions = () => ({
+    title: 'Create Account',
+    headerTintColor: '#FFF',
     headerStyle: {
-      backgroundColor: '#053C5C'
+      backgroundColor: '#053C5C',
     },
   });
   static defaultProps = {
@@ -84,9 +89,12 @@ class SignUpScreen extends React.Component {
       firstName: '',
       lastName: '',
       phoneNumber: '',
+      nextButtonValidate: false,
+      errorMessages: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleNext = this.handleNext.bind(this);
   }
 
 	handleSignUp = () => {
@@ -108,12 +116,91 @@ class SignUpScreen extends React.Component {
       phoneNumber,
 		);
 	};
-
+	validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+	}
+	validateNumber = (number) => {
+		var re = /^[\d\.\-]+$/;
+		return re.test(number);
+	}
+	checkValidataion = () => {
+		const {
+			emailAddress,
+      password,
+      passwordConfirm,
+      firstName,
+      lastName,
+      phoneNumber,
+		} = this.state;
+		const locale = 'en';
+		let result = [], validate = true;
+		if (firstName == ''){
+			result[0] = translate('Input first name', locale);
+			validate = false;
+		}
+		if (lastName == ''){
+			result[1] = translate('Input last name', locale);
+			validate = false;
+		}
+		if (emailAddress == ''){
+			result[2] = translate('Input email address', locale);
+			validate = false;
+		}
+		else if (!this.validateEmail(emailAddress)){
+				result[2] = translate('Input validate email', locale);
+				validate = false;
+		}
+		if (password == ''){
+			result[3] = translate('Input password', locale);
+			validate = false;
+		}
+		else if (password.length < 8){
+			result[3] = translate('Input at least 8 characters', locale);	
+			validate = false;
+		}
+		if (passwordConfirm == '' || passwordConfirm != password){
+			result[4] = translate('Input the same confirm password', locale);
+			validate = false;
+		}
+		if (!this.validateNumber(phoneNumber))
+		{
+			result[5] = translate('Inut the correct number', locale);
+			validate = false;
+		}
+		this.setState({ errorMessage: result, nextButtonValidate: validate });	
+		return validate;
+	}
   handleChange = (name, val) => {
     this.setState({
       ...this.state,
       [name]: val,
+    }, () => {
+    	this.checkValidataion();
     });
+  }
+  handleNext = () => {
+  	const {
+			emailAddress,
+      password,
+      passwordConfirm,
+      firstName,
+      lastName,
+      phoneNumber,
+      nextButtonValidate,
+		} = this.state;
+  	if (nextButtonValidate)
+  	{
+  		Alert.alert(
+			  'Accept Terms',
+			  'By creating an account, you agree to the Privacy of Service and Privacy Policy.',
+			  [
+			    {text: 'CANCEL', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+			    {text: 'I AGREE', onPress: () => console.log('OK Pressed')},
+			  ],
+			  { cancelable: false }
+			)
+  	}
   }
 	//
   // handleSubmit = () => {
@@ -128,7 +215,8 @@ class SignUpScreen extends React.Component {
     // if (loading) return <Loading />;
 		const locale = 'en';
 		const { register } = this.props;
-
+		const { nextButtonValidate } = this.state;
+		console.log(this.state.nextButtonValidate, nextButtonValidate);
     return (
       <Container>
         <Content style={styles.content}>
@@ -186,7 +274,10 @@ class SignUpScreen extends React.Component {
             <Spacer size={20} />
             <Text style={styles.note}>*We will provide to others in your community.</Text>
             <Spacer size={8} />
-            <Button full style={styles.button} onPress={Actions.handleSubmit}>
+            <Button 
+            	full 
+            	style={nextButtonValidate ? styles.validateButton: styles.button} 
+            	onPress={() => this.handleNext()}>
 							<Text style={styles.buttonText}>{translate('Next', locale)}</Text>
 						</Button>
 						<Spacer size={40} />

@@ -6,7 +6,6 @@ import { getUser } from '../reducers/selectors';
 function *watchReduxLoadFromDisk() {
   while(true) {
     yield take(LOAD);       //Subscribe to when app finishes loading
-    console.log('---watchReduxLoadFromDisk---');
     try {
       // Skip login if already logged in
       const { isAuthenticated } = yield select(getUser);

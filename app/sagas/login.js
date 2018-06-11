@@ -19,7 +19,6 @@ function loginCall({email, password}) {
           reject({status: userData.error_description || userData.error});
         }
         else {
-          userData['status'] = '';
           resolve(userData);
         }
       })

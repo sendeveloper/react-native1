@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 
-export function registerRequest(email, password) {
+export function registerRequest(emailAddress, password, 
+    passwordConfirm, firstName, lastName, phoneNumber) {
   return {
     type: types.REGISTER.REQUEST,
 		emailAddress,

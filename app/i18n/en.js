@@ -28,4 +28,12 @@ export default {
 	'and': 'and',
 	'Cancel': 'Cancel',
 	'I AGREE': 'I AGREE',
+	'I am a': 'I am a',
+	'COLLEGE STUDENT': 'COLLEGE STUDENT',
+	'seeking advice, leads & opportunities': 'seeking advice, leads & opportunities',
+	'MENTOR': 'MENTOR',
+	'willing to help college students': 'willing to help college students',
+	'I have an invitation code': 'I have an invitation code',
+	'Invite code': 'Invite code',
+	'Sign Up': 'Sign Up'
 };

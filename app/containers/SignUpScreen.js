@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as registerActions from '../actions/registerActions';
 import { Actions } from 'react-native-router-flux';
-import { StyleSheet, Modal, Text as OriginalText } from 'react-native';
+import { StyleSheet, Modal } from 'react-native';
 import { translate } from '../i18n';
 import Loading from './Loading';
 import Messages from '../components/Messages';
@@ -120,7 +120,31 @@ const styles = StyleSheet.create({
 		width: 1, 
 		height: '100%', 
 		backgroundColor: '#CDCED2'
-  }
+  },
+  slideShow: {
+  	display: 'flex'
+  },
+  slideHide: {
+    display: 'none'
+  },
+  validateJobButton: {
+  	backgroundColor: '#053C5C',
+  	height: 80,
+  	padding: 10,
+  },
+  jobButton: {
+  	backgroundColor: '#B7BABD',
+  	height: 80,
+  	padding: 10,
+  },
+  jobButtonText: {
+  	fontSize: 20,
+  	color: '#FFF'
+  },
+  jobButtonNoteText: {
+  	fontSize: 14,
+  	color: '#FFF'
+  },
 })
 
 const TermsAlertView = (
@@ -160,9 +184,13 @@ class SignUpScreen extends React.Component {
       firstName: '',
       lastName: '',
       phoneNumber: '',
+      tempCode: '123456',
+      inviteCode: '',
       nextButtonValidate: false,
       errorMessages: [],
-      alertVisible: false
+      alertVisible: false,
+      currentSlide: 0,
+      jobType: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -170,6 +198,7 @@ class SignUpScreen extends React.Component {
     this.showAlert = this.showAlert.bind(this);
     this.showTerm = this.showTerm.bind(this);
     this.showPolicy = this.showPolicy.bind(this);
+    this.setJobType = this.setJobType.bind(this);
   }
 
 	handleSignUp = () => {
@@ -263,7 +292,12 @@ class SignUpScreen extends React.Component {
 			this.showAlert(true);
   	}
   }
+  generateCode = () => {
+  	this.setState({ tempCode: '123456' });
+  }
   showAlert = (b) => {
+  	if (b)
+  		this.generateCode();
   	this.setState({ alertVisible: b});
   }
   showTerm = () => {
@@ -275,6 +309,13 @@ class SignUpScreen extends React.Component {
   	this.showAlert(false);
   	console.log('showPolicy');
   	Actions.push('policy');
+  }
+  clickAgree = () => {
+  	this.showAlert(false);
+  	this.setState({ currentSlide: 1 });
+  }
+  setJobType = (type) => {
+  	this.setState({ jobType: type });
   }
 	//
   // handleSubmit = () => {
@@ -289,76 +330,134 @@ class SignUpScreen extends React.Component {
     // if (loading) return <Loading />;
 		const locale = 'en';
 		const { register } = this.props;
-		const { nextButtonValidate } = this.state;
+		const { nextButtonValidate, 
+				currentSlide, 
+				jobType, 
+				tempCode,
+				inviteCode
+			} = this.state;
     return (
       <Container>
         <Content style={[styles.content, this.state.alertVisible && styles.opacity]}>
-					<View>
-					  <H1 style={styles.header} >
-	          	Tell us about yourself.
-	          </H1>
+        	<View style={currentSlide!=0 ? styles.slideHide : styles.slideShow}>
+						<View>
+						  <H1 style={styles.header} >
+		          	Tell us about yourself.
+		          </H1>
+						</View>
+						{register.errorMessage && <Messages message={register.errorMessage} />}
+						<Spacer size={20} />
+						<Body>
+							<Item>
+	              <Input
+	              	style={styles.input}
+	                placeholder={translate('First Name', locale) + '*'}
+									onChangeText={v => this.handleChange('firstName', v)}
+	              />
+	            </Item>
+							<Item>
+	              <Input
+	              	style={styles.input}
+	                placeholder={translate('Last Name', locale) + '*'}
+									onChangeText={v => this.handleChange('lastName', v)}
+	              />
+	            </Item>
+	            <Item>
+	              <Input
+	              	style={styles.input}
+	                placeholder={translate('Email', locale) + '*'}
+									onChangeText={v => this.handleChange('emailAddress', v)}
+	              />
+	            </Item>
+							<Item>
+	              <Input
+	              	style={styles.input}
+	              	secureTextEntry
+	                placeholder={translate('Password', locale)}
+									onChangeText={v => this.handleChange('password', v)}
+	              />
+	            </Item>
+							<Item>
+	              <Input
+	              	style={styles.input}
+									secureTextEntry
+	                placeholder={translate('Confirm Password', locale)}
+									onChangeText={v => this.handleChange('passwordConfirm', v)}
+	              />
+	            </Item>
+							<Item>
+	              <Input
+	                placeholder={translate('Phone Number', locale) + '*'}
+									onChangeText={v => this.handleChange('phoneNumber', v)}
+	              />
+	            </Item>
+	            <Spacer size={20} />
+	            <Text style={styles.note}>*We will provide to others in your community.</Text>
+	            <Spacer size={8} />
+	            <Button 
+	            	full 
+	            	style={nextButtonValidate ? styles.validateButton: styles.button} 
+	            	onPress={() => this.handleNext()}>
+								<Text style={styles.buttonText}>{translate('Next', locale)}</Text>
+							</Button>
+		        </Body>
 					</View>
-					{register.errorMessage && <Messages message={register.errorMessage} />}
-					<Spacer size={20} />
-					<Body>
-						<Item>
-              <Input
-              	style={styles.input}
-                placeholder={translate('First Name', locale) + '*'}
-								onChangeText={v => this.handleChange('firstName', v)}
-              />
-            </Item>
-						<Item>
-              <Input
-              	style={styles.input}
-                placeholder={translate('Last Name', locale) + '*'}
-								onChangeText={v => this.handleChange('lastName', v)}
-              />
-            </Item>
+					<View style={currentSlide!=1 ? styles.slideHide : styles.slideShow}>
+	          <View>
+						  <H1 style={styles.header} >
+		          	{translate('I am a', locale)}...
+		          </H1>
+						</View>
+						<Spacer size={20} />
+						<Button 
+            	full 
+            	style={jobType==1 ? styles.validateJobButton: styles.jobButton} 
+            	onPress={() => this.setJobType(1)}>
+            	<Body>
+								<Text style={styles.jobButtonText}>
+									{translate('COLLEGE STUDENT', locale)}
+								</Text>
+								<Text style={styles.jobButtonNoteText}>
+									{translate('seeking advice, leads & opportunities', locale)}
+								</Text>
+							</Body>
+						</Button>
+						<Spacer size={20} />
+						<Button 
+            	full 
+            	style={jobType==2 ? styles.validateJobButton: styles.jobButton} 
+            	onPress={() => this.setJobType(2)}>
+            	<Body>
+								<Text style={styles.jobButtonText}>
+									{translate('MENTOR', locale)}
+								</Text>
+								<Text style={styles.jobButtonNoteText}>
+									{translate('willing to help college students', locale)}
+								</Text>
+							</Body>
+						</Button>
+						<Spacer size={20} />
+						<H1 style={styles.header} >
+	          	{translate('I have an invitation code', locale)}:
+	          </H1>
             <Item>
               <Input
               	style={styles.input}
-                placeholder={translate('Email', locale) + '*'}
-								onChangeText={v => this.handleChange('emailAddress', v)}
-              />
+                placeholder={translate('Invite code', locale)}
+								onChangeText={v => this.handleChange('inviteCode', v)} />
             </Item>
-						<Item>
-              <Input
-              	style={styles.input}
-              	secureTextEntry
-                placeholder={translate('Password', locale)}
-								onChangeText={v => this.handleChange('password', v)}
-              />
-            </Item>
-						<Item>
-              <Input
-              	style={styles.input}
-								secureTextEntry
-                placeholder={translate('Confirm Password', locale)}
-								onChangeText={v => this.handleChange('passwordConfirm', v)}
-              />
-            </Item>
-						<Item>
-              <Input
-                placeholder={translate('Phone Number', locale) + '*'}
-								onChangeText={v => this.handleChange('phoneNumber', v)}
-              />
-            </Item>
-            <Spacer size={20} />
-            <Text style={styles.note}>*We will provide to others in your community.</Text>
-            <Spacer size={8} />
             <Button 
             	full 
-            	style={nextButtonValidate ? styles.validateButton: styles.button} 
-            	onPress={() => this.handleNext()}>
-							<Text style={styles.buttonText}>{translate('Next', locale)}</Text>
+            	style={(jobType>0 && tempCode==inviteCode) ? styles.validateButton: styles.button} 
+            	onPress={() => this.handleSignUp()}>
+							<Text style={styles.buttonText}>{translate('Sign Up', locale)}</Text>
 						</Button>
-						<Spacer size={40} />
-						<Thumbnail
-							square 
-							style={styles.thumbnail} 
-							source={require('../images/logo.png')} />
-	        </Body>
+	        </View>
+	        <Spacer size={40} />
+					<Thumbnail
+						square 
+						style={styles.thumbnail} 
+						source={require('../images/logo.png')} />
 	        <Modal
 	          visible={this.state.alertVisible}
 	          transparent={true}
@@ -389,7 +488,9 @@ class SignUpScreen extends React.Component {
 											{translate('Cancel', locale)}
 										</Text>
                     <View style={styles.alertHorizontalDivider} />
-                    <Text style={styles.buttonStyle}>
+                    <Text 
+                    	style={styles.buttonStyle}
+                    	onPress={() => { this.clickAgree()} }>
                     	{translate('I AGREE', locale)}
                     </Text>
                   </View>

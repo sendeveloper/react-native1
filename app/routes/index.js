@@ -84,40 +84,6 @@ class UpperNetwork extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  tabBar: {
-    borderTopColor: '#e1e1e1',
-    borderTopWidth: 1,
-    backgroundColor: '#FFFFFF',
-    opacity: 0.98
-  },
-  navigationBarStyle: {
-    backgroundColor: '#00f'
-  },
-  navigationBarTitleStyle: {
-    color:'white'
-  },
-  navigationBarleftButtonTextStyle:{
-    color:'white'
-  },
-  navTitleStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 20
-  },
-  tabItem: {
-    flex: 1,
-    width: 100,
-    flexDirection: 'column',
-    alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center'
-  }
-});
-
 const mapStateToProps = function(state) {
   const { user } = state;
   return {

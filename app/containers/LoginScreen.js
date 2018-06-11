@@ -42,14 +42,13 @@ const styles = StyleSheet.create({
   	paddingBottom: 2,
     backgroundColor: 'rgba(255,255,255,0.2)',
     height: 41,
-    fontSize: 18,
-    lineHeight: 21,
-    color: '#FFF',
   },
   transparentButton: {
+    backgroundColor: 'transparent',
+  },
+  buttonText: {
   	fontSize: 18,
     lineHeight: 21,
-    backgroundColor: 'transparent',
     color: '#FFF',
     textAlign: 'center',
   },
@@ -119,20 +118,20 @@ class LoginScreen extends Component {
 								full 
 								onPress={this.loginEmail}
 								style={styles.button} >
-								<Text>{translate('Login', locale)}</Text>
+								<Text style={styles.buttonText}>{translate('Login', locale)}</Text>
 							</Button>
 							<Spacer size={40} />
 							<Button 
 								full
 								style={styles.transparentButton} 
 								onPress={() => Actions.push('forgotPassword')} >
-								<Text>{translate('ForgotPassword', locale)}</Text>
+								<Text style={styles.buttonText}>{translate('ForgotPassword', locale)}</Text>
 							</Button>
 							<Button 
 								full
 								style={styles.button} 
 								onPress={() => Actions.push('signUp')} >
-								<Text>{translate('Signup', locale)}</Text>
+								<Text style={styles.buttonText}>{translate('Signup', locale)}</Text>
 							</Button>
 						</Body>
 					</View>

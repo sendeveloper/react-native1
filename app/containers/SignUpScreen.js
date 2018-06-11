@@ -65,6 +65,11 @@ class SignUpScreen extends React.Component {
   //   onFormSubmit: PropTypes.func.isRequired,
   // }
 	//
+	static navigationOptions = () => ({
+    headerStyle: {
+      backgroundColor: '#053C5C'
+    },
+  });
   static defaultProps = {
     error: null,
   }

@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as registerActions from '../actions/registerActions';
 import { Actions } from 'react-native-router-flux';
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Modal, Text as OriginalText } from 'react-native';
 import { translate } from '../i18n';
 import Loading from './Loading';
 import Messages from '../components/Messages';
@@ -28,6 +28,9 @@ import Header from '../components/Header';
 import Spacer from '../components/Spacer';
 
 const styles = StyleSheet.create({
+	opacity: {
+		opacity: 0.8
+	},
 	content: {
   	padding: 44,
   },
@@ -57,8 +60,76 @@ const styles = StyleSheet.create({
   note: {
   	fontSize: 10,
   	color: '#A1A1A1',
+  },
+  alertMainView:{
+	  alignItems: 'center',
+	  justifyContent: 'center',
+	  height: 144,
+	  width: '70%',
+	  borderWidth: 1,
+	  backgroundColor: '#FFF',
+	  borderColor: '#CCC',
+	  borderRadius:7,
+	},
+	alertTitle:{
+	  fontSize: 14, 
+	  color: "#000",
+	  textAlign: 'center',
+	  paddingTop: 20,
+	  height: '28%',
+	  fontWeight: 'bold'
+	},
+	alertMessage:{
+    fontSize: 13, 
+    color: "#111",
+    textAlign: 'center',
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 5,
+    height: '47%'
+	},  
+	buttonStyle:{
+	  color:'#0076FF',
+	  textAlign:'center',
+	  fontSize: 17,
+	  padding: 6,
+	  width: '50%',
+	  justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    fontWeight: 'bold'
+	},
+	alertTerm: {
+		fontSize: 13, 
+    color: "#000",
+    textAlign: 'center',
+    marginTop: 15,
+    paddingLeft: 5,
+    paddingRight: 5,
+    textDecorationLine: "underline",
+    textDecorationStyle: "solid",
+    textDecorationColor: "#000",
+    fontWeight: 'bold'
+  },
+  alertVerticalDivider: {
+		width: '100%', 
+		height: 1, 
+		backgroundColor: '#CDCED2'
+  },
+  alertHorizontalDivider: {
+		width: 1, 
+		height: '100%', 
+		backgroundColor: '#CDCED2'
   }
 })
+
+const TermsAlertView = (
+	<Text>
+		By creating an account, you agree to the 
+		<Text>Privacy of Service</Text> and 
+		<Text>Privacy Policy</Text>.
+	</Text>
+)
 
 class SignUpScreen extends React.Component {
   // static propTypes = {
@@ -91,10 +162,14 @@ class SignUpScreen extends React.Component {
       phoneNumber: '',
       nextButtonValidate: false,
       errorMessages: [],
+      alertVisible: false
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleNext = this.handleNext.bind(this);
+    this.showAlert = this.showAlert.bind(this);
+    this.showTerm = this.showTerm.bind(this);
+    this.showPolicy = this.showPolicy.bind(this);
   }
 
 	handleSignUp = () => {
@@ -181,26 +256,25 @@ class SignUpScreen extends React.Component {
   }
   handleNext = () => {
   	const {
-			emailAddress,
-      password,
-      passwordConfirm,
-      firstName,
-      lastName,
-      phoneNumber,
       nextButtonValidate,
 		} = this.state;
   	if (nextButtonValidate)
   	{
-  		Alert.alert(
-			  'Accept Terms',
-			  'By creating an account, you agree to the Privacy of Service and Privacy Policy.',
-			  [
-			    {text: 'CANCEL', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-			    {text: 'I AGREE', onPress: () => console.log('OK Pressed')},
-			  ],
-			  { cancelable: false }
-			)
+			this.showAlert(true);
   	}
+  }
+  showAlert = (b) => {
+  	this.setState({ alertVisible: b});
+  }
+  showTerm = () => {
+  	this.showAlert(false);
+  	console.log('showTerm');
+  	Actions.push('term');
+  }
+  showPolicy = () => {
+  	this.showAlert(false);
+  	console.log('showPolicy');
+  	Actions.push('policy');
   }
 	//
   // handleSubmit = () => {
@@ -216,10 +290,9 @@ class SignUpScreen extends React.Component {
 		const locale = 'en';
 		const { register } = this.props;
 		const { nextButtonValidate } = this.state;
-		console.log(this.state.nextButtonValidate, nextButtonValidate);
     return (
       <Container>
-        <Content style={styles.content}>
+        <Content style={[styles.content, this.state.alertVisible && styles.opacity]}>
 					<View>
 					  <H1 style={styles.header} >
 	          	Tell us about yourself.
@@ -286,6 +359,43 @@ class SignUpScreen extends React.Component {
 							style={styles.thumbnail} 
 							source={require('../images/logo.png')} />
 	        </Body>
+	        <Modal
+	          visible={this.state.alertVisible}
+	          transparent={true}
+	          animationType={"fade"}
+	          onRequestClose={ () => { this.showAlert(false)} } >
+	            <View style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={styles.alertMainView}>
+                  <Text style={styles.alertTitle}>{translate('Accept Terms', locale)}</Text>
+                  <Text style={styles.alertMessage}>
+                  	{translate('By creating an account, you agree to the', locale)} &nbsp;
+                  	<Text 
+                  		style={styles.alertTerm} 
+                  		onPress={() => { this.showTerm()} } >
+                  		{translate('Terms of Service', locale)}
+                  	</Text>
+                  	&nbsp;
+                  	{translate('and', locale)}
+                  	&nbsp;
+                  	<Text 
+                  		style={styles.alertTerm}
+                  		onPress={() => { this.showPolicy()} } >
+                  		{translate('Privacy Policy', locale)}
+                  	</Text>.
+                  </Text>
+                  <View style={styles.alertVerticalDivider} />
+                  <View style={{flexDirection: 'row', height: '25%'}}>
+										<Text style={styles.buttonStyle} onPress={() => { this.showAlert(false)} }>
+											{translate('Cancel', locale)}
+										</Text>
+                    <View style={styles.alertHorizontalDivider} />
+                    <Text style={styles.buttonStyle}>
+                    	{translate('I AGREE', locale)}
+                    </Text>
+                  </View>
+                </View>
+	            </View>
+	        </Modal>
         </Content>
       </Container>
     );

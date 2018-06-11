@@ -19,6 +19,8 @@ import LocaleScreen from '../containers/LocaleScreen';
 import LoginScreen from '../containers/LoginScreen';
 import ForgotPasswordScreen from '../containers/ForgotPasswordScreen';
 import SignUpScreen from '../containers/SignUpScreen';
+import TermScreen from '../containers/TermScreen';
+import PolicyScreen from '../containers/PolicyScreen';
 
 class TabIcon extends Component {
   render() {
@@ -64,6 +66,20 @@ class UpperNetwork extends Component {
 									title="FORGOT PASSWORD"
 									{...DefaultProps.navbarProps}
 									component={ForgotPasswordScreen}
+								/>
+								<Scene
+									back
+									key="term"
+									title="Terms and Service"
+									{...DefaultProps.navbarProps}
+									component={TermScreen}
+								/>
+								<Scene
+									back
+									key="policy"
+									title="Privacy Policy"
+									{...DefaultProps.navbarProps}
+									component={PolicyScreen}
 								/>
 							</Stack>
 						</Scene>

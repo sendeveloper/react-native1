@@ -20,5 +20,12 @@ export default {
 	'Input password': 'Input password',
 	'Input at least 8 characters': 'Input at least 8 characters',
 	'Input the same confirm password': 'Input the same confirm password',
-	'Inut the correct number': 'Inut the correct number'
+	'Inut the correct number': 'Inut the correct number',
+	'Accept Terms': 'Accept Terms',
+	'By creating an account, you agree to the': 'By creating an account, you agree to the',
+	'Terms of Service': 'Terms of Service',
+	'Privacy Policy': 'Privacy Policy',
+	'and': 'and',
+	'Cancel': 'Cancel',
+	'I AGREE': 'I AGREE',
 };

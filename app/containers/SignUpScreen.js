@@ -252,8 +252,8 @@ class SignUpScreen extends React.Component {
 			validate = false;
 		}
 		else if (!this.validateEmail(emailAddress)){
-				result[2] = translate('Input validate email', locale);
-				validate = false;
+			result[2] = translate('Input validate email', locale);
+			validate = false;
 		}
 		if (password == ''){
 			result[3] = translate('Input password', locale);

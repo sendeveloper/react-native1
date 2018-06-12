@@ -3,7 +3,7 @@ export default {
   Email: 'Email',
   Password: 'Password',
   'Confirm Password': 'Confirm Password',
-  Signup: 'SIGN UP',
+  Signup: 'Sign Up',
   ForgotPassword: 'Forgot Password?',
 
  	'Email Address': 'Email Address',

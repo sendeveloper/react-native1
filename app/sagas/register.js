@@ -86,7 +86,10 @@ function *watchRegisterRequest() {
       }
       const response = yield call(registerCall, payload);
 
-      yield put(registerSuccess(response));
+      if (response.Success)
+        yield put(registerSuccess(response));
+      else
+        yield put(registerFailure(response.ValidationErrors[0]));  
       console.log('SAGA REGISTER SUCCESS: ', response);
     } catch (err) {
       console.log('SAGA REGISTER ERR: ', err);

@@ -24,19 +24,22 @@ import {
 } from 'native-base';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ImageBackground } from 'react-native';
 import { bindActionCreators } from 'redux';
+import Dimensions from 'Dimensions';
 import * as loginActions from '../actions/loginActions';
 import { translate } from '../i18n';
 import Messages from '../components/Messages';
 import Header from '../components/Header';
 import Spacer from '../components/Spacer';
 import Logo from '../images/logo.png'
+const {width, height} = Dimensions.get('window');
+console.log(height);
 
 const styles = StyleSheet.create({
 	content: {
-  	padding: 44,
-  	backgroundColor: '#333'
+    padding: 44,
+    height: (height - 88),
   },
   button: {
   	paddingTop: 2,
@@ -60,7 +63,10 @@ const styles = StyleSheet.create({
   	fontSize: 16,
   	lineHeight: 19,
   },
-
+  imageBackground: {
+    width: '100%',
+    height: height,
+  },
 })
 
 class LoginScreen extends Component {
@@ -91,57 +97,61 @@ class LoginScreen extends Component {
     const locale = 'en';
     return (
       <Container>
-				<Content style={styles.content}>
-					<View>
-						<Spacer size={41} />
-						<Thumbnail 
-							style={{ alignSelf: "center" }} 
-							source={require('../images/logo.png')} />
-						<Spacer size={40} />
-						<Body>
-	            <Item>
-	              <Input
-	              	style={styles.input}
-	                placeholder="Email"
-	                onChangeText={email => this.setState({email})}
-	                value={email} />
-	            </Item>
-							<Spacer size={10} />
-	            <Item >
-	              <Input
-	              	style={styles.input}
-	                placeholder="Password"
-	                secureTextEntry={true}
-	                onChangeText={password => this.setState({password})}
-	                value={password} />
-	            </Item>
-	            <Spacer size={10} />
-	            {user.errorMessage && <Messages message={user.errorMessage} />}
-							<Spacer size={20} />
-							<Button 
-								full 
-								onPress={this.loginEmail}
-								style={styles.button} >
-								<Text style={styles.buttonText}>
-                  {translate('Login', locale)}
-                </Text>
-                {this.state.loginRequest && <Spinner color='white' size="small" />}
-							</Button>
-							<Spacer size={40} />
-							<Button 
-								full
-								style={styles.transparentButton} 
-								onPress={() => Actions.push('forgotPassword')} >
-								<Text style={styles.buttonText}>{translate('ForgotPassword', locale)}</Text>
-							</Button>
-							<Button 
-								full
-								style={styles.button} 
-								onPress={() => Actions.push('signUp')} >
-								<Text style={styles.buttonText}>{translate('Signup', locale)}</Text>
-							</Button>
-						</Body>
-					</View>
+				<Content>
+          <ImageBackground 
+                style={styles.imageBackground} 
+                source={require('../images/background.png')} >
+            <View style={styles.content}>
+  						<Spacer size={41} />
+  						<Thumbnail 
+  							style={{ alignSelf: "center" }} 
+  							source={require('../images/logo.png')} />
+  						<Spacer size={40} />
+  						<Body>
+  	            <Item>
+  	              <Input
+  	              	style={styles.input}
+  	                placeholder="Email"
+  	                onChangeText={email => this.setState({email})}
+  	                value={email} />
+  	            </Item>
+  							<Spacer size={10} />
+  	            <Item >
+  	              <Input
+  	              	style={styles.input}
+  	                placeholder="Password"
+  	                secureTextEntry={true}
+  	                onChangeText={password => this.setState({password})}
+  	                value={password} />
+  	            </Item>
+  	            <Spacer size={10} />
+  	            {user.errorMessage && <Messages message={user.errorMessage} />}
+  							<Spacer size={20} />
+  							<Button 
+  								full 
+  								onPress={this.loginEmail}
+  								style={styles.button} >
+  								<Text style={styles.buttonText}>
+                    {translate('Login', locale)}
+                  </Text>
+                  {this.state.loginRequest && <Spinner color='white' size="small" />}
+  							</Button>
+  							<Spacer size={80} />
+  							<Button 
+  								full
+  								style={styles.transparentButton} 
+  								onPress={() => Actions.push('forgotPassword')} >
+  								<Text style={styles.buttonText}>{translate('ForgotPassword', locale)}</Text>
+  							</Button>
+  							<Button 
+  								full
+  								style={styles.button} 
+  								onPress={() => Actions.push('signUp')} >
+  								<Text style={styles.buttonText}>{translate('Signup', locale)}</Text>
+  							</Button>
+						  </Body>
+            </View>
+          </ImageBackground>
         </Content>
       </Container>
     );

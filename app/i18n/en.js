@@ -54,5 +54,14 @@ export default {
 	'Interact': 'Interact',
 	'Learn': 'Learn',
 	'Track': 'Track',
-	'Self': 'Self'
+	'Self': 'Self',
+	'User Name': 'User Name',
+	'School': 'School',
+	'Objective': 'Objective',
+	'Chapter': 'Chapter',
+	'Input user name': 'Input user name',
+	'Input school': 'Input school',
+	'Input objective': 'Input objective',
+	'Input chapter': 'Input chapter',
+	'You are registered successfully': 'You are registered successfully'
 };

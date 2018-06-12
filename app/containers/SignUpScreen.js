@@ -184,13 +184,18 @@ class SignUpScreen extends React.Component {
       firstName: '',
       lastName: '',
       phoneNumber: '',
-      tempCode: '123456',
+      tempCode: '0wJKn',
       inviteCode: '',
+      userName: '',
+      school: '',
+      objective: '',
+      chapter: '',
       nextButtonValidate: false,
       errorMessages: [],
       alertVisible: false,
       currentSlide: 0,
-      jobType: 0
+      jobType: 0,
+      showSuccessAlert: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -199,6 +204,7 @@ class SignUpScreen extends React.Component {
     this.showTerm = this.showTerm.bind(this);
     this.showPolicy = this.showPolicy.bind(this);
     this.setJobType = this.setJobType.bind(this);
+
   }
 
 	handleSignUp = () => {
@@ -209,6 +215,11 @@ class SignUpScreen extends React.Component {
       firstName,
       lastName,
       phoneNumber,
+      inviteCode,
+      userName,
+      school,
+      objective,
+      chapter
 		} = this.state;
 
 		this.props.actions.registerRequest(
@@ -218,7 +229,13 @@ class SignUpScreen extends React.Component {
       firstName,
       lastName,
       phoneNumber,
+      inviteCode,
+      userName,
+      school,
+      objective,
+      chapter
 		);
+
 	};
 	validateEmail = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -236,6 +253,10 @@ class SignUpScreen extends React.Component {
       firstName,
       lastName,
       phoneNumber,
+      userName,
+      school,
+      objective,
+      chapter
 		} = this.state;
 		const locale = 'en';
 		let result = [], validate = true;
@@ -255,21 +276,36 @@ class SignUpScreen extends React.Component {
 			result[2] = translate('Input validate email', locale);
 			validate = false;
 		}
+		if (userName == ''){
+			result[3] = translate('Input user name', locale);
+			validate = false;
+		}
 		if (password == ''){
-			result[3] = translate('Input password', locale);
+			result[4] = translate('Input password', locale);
 			validate = false;
 		}
 		else if (password.length < 8){
-			result[3] = translate('Input at least 8 characters', locale);	
+			result[4] = translate('Input at least 8 characters', locale);	
 			validate = false;
 		}
 		if (passwordConfirm == '' || passwordConfirm != password){
-			result[4] = translate('Input the same confirm password', locale);
+			result[5] = translate('Input the same confirm password', locale);
 			validate = false;
 		}
-		if (!this.validateNumber(phoneNumber))
-		{
-			result[5] = translate('Inut the correct number', locale);
+		if (!this.validateNumber(phoneNumber)){
+			result[6] = translate('Inut the correct number', locale);
+			validate = false;
+		}
+		if (school == ''){
+			result[7] = translate('Input school', locale);
+			validate = false;
+		}
+		if (objective == ''){
+			result[8] = translate('Input objective', locale);
+			validate = false;
+		}
+		if (chapter == ''){
+			result[9] = translate('Input chapter', locale);
 			validate = false;
 		}
 		this.setState({ errorMessage: result, nextButtonValidate: validate });	
@@ -293,7 +329,7 @@ class SignUpScreen extends React.Component {
   	}
   }
   generateCode = () => {
-  	this.setState({ tempCode: '123456' });
+  	this.setState({ tempCode: '0wJKn' });
   }
   showAlert = (b) => {
   	if (b)
@@ -302,12 +338,10 @@ class SignUpScreen extends React.Component {
   }
   showTerm = () => {
   	this.showAlert(false);
-  	console.log('showTerm');
   	Actions.push('term');
   }
   showPolicy = () => {
   	this.showAlert(false);
-  	console.log('showPolicy');
   	Actions.push('policy');
   }
   clickAgree = () => {
@@ -317,7 +351,19 @@ class SignUpScreen extends React.Component {
   setJobType = (type) => {
   	this.setState({ jobType: type });
   }
-	//
+  componentDidMount = () => {
+  	this.props.actions.registerInit();
+  }
+  componentWillReceiveProps = () => {
+		const { register } = this.props;
+  	if (register.isRegistered) {
+  		this.setState({showSuccessAlert: true});
+  		setTimeout(() => {
+  			this.setState({showSuccessAlert: false});
+  		}, 2000)
+  	}
+  }
+ 	//
   // handleSubmit = () => {
   //   this.props.onFormSubmit(this.state)
   //     .then(() => Actions.login())
@@ -336,6 +382,7 @@ class SignUpScreen extends React.Component {
 				tempCode,
 				inviteCode
 			} = this.state;
+		console.log(register.isRegistered);
     return (
       <Container>
         <Content style={[styles.content, this.state.alertVisible && styles.opacity]}>
@@ -369,6 +416,13 @@ class SignUpScreen extends React.Component {
 									onChangeText={v => this.handleChange('emailAddress', v)}
 	              />
 	            </Item>
+	            <Item>
+	              <Input
+	              	style={styles.input}
+	                placeholder={translate('User Name', locale) + '*'}
+									onChangeText={v => this.handleChange('userName', v)}
+	              />
+	            </Item>
 							<Item>
 	              <Input
 	              	style={styles.input}
@@ -391,6 +445,24 @@ class SignUpScreen extends React.Component {
 									onChangeText={v => this.handleChange('phoneNumber', v)}
 	              />
 	            </Item>
+	            <Item>
+	              <Input
+	                placeholder={translate('School', locale)}
+									onChangeText={v => this.handleChange('school', v)}
+	              />
+	            </Item>
+	            <Item>
+	              <Input
+	                placeholder={translate('Objective', locale)}
+									onChangeText={v => this.handleChange('objective', v)}
+	              />
+	            </Item>
+	            <Item>
+	              <Input
+	                placeholder={translate('Chapter', locale)}
+									onChangeText={v => this.handleChange('chapter', v)}
+	              />
+	            </Item>
 	            <Spacer size={20} />
 	            <Text style={styles.note}>*We will provide to others in your community.</Text>
 	            <Spacer size={8} />
@@ -408,7 +480,6 @@ class SignUpScreen extends React.Component {
 		          	{translate('I am a', locale)}...
 		          </H1>
 						</View>
-						<Spacer size={20} />
 						<Button 
             	full 
             	style={jobType==1 ? styles.validateJobButton: styles.jobButton} 
@@ -458,6 +529,8 @@ class SignUpScreen extends React.Component {
 						square 
 						style={styles.thumbnail} 
 						source={require('../images/logo.png')} />
+					<Spacer size={10} />
+					{this.state.showSuccessAlert && <Messages type={'success'} message={translate('You are registered successfully', locale)} />}
 	        <Modal
 	          visible={this.state.alertVisible}
 	          transparent={true}

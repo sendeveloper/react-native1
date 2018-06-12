@@ -96,6 +96,10 @@ const styles = StyleSheet.create({
   badge: {
     position: 'relative',
     top: 30,
+    left: 4,
+    transform: [
+      { scale: 0.6 }
+    ],
   },
   footerLogo: {
     width: 32,

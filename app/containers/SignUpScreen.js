@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   	width: 35
   },
   input: { 	
-  	color: '#053C5C'
+  	color: '#053C5C',
   },
   note: {
   	fontSize: 10,

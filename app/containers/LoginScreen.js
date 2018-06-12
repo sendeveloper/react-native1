@@ -19,7 +19,8 @@ import {
   Thumbnail,
   H1,
   H2,
-  H3
+  H3,
+  Spinner
 } from 'native-base';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -65,17 +66,20 @@ const styles = StyleSheet.create({
 class LoginScreen extends Component {
 	static propTypes = {
 		locale: PropTypes.string,
-		error: PropTypes.string
+		error: PropTypes.string,
 	};
 
   state = {
     email: 'bond@007.com',
     password: 'asdfasdf1',
+    loginRequest: false,
   };
-
+  componentDidMount = () => {
+    this.props.actions.loginInit();
+  }
   loginEmail = () => {
     const { email, password } = this.state;
-
+    this.setState({ loginRequest: true });
     // console.log(email, password, this.props.actions);
     this.props.actions.loginRequest(email, password);
     //Actions.main();
@@ -118,7 +122,10 @@ class LoginScreen extends Component {
 								full 
 								onPress={this.loginEmail}
 								style={styles.button} >
-								<Text style={styles.buttonText}>{translate('Login', locale)}</Text>
+								<Text style={styles.buttonText}>
+                  {translate('Login', locale)}
+                </Text>
+                {this.state.loginRequest && <Spinner color='white' size="small" />}
 							</Button>
 							<Spacer size={40} />
 							<Button 

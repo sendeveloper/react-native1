@@ -33,6 +33,16 @@ export default function user(state = initialState, action) {
         failure: true,
         errorMessage: action.err,
       });
+    case types.LOGIN.INIT:
+      return Object.assign({}, state, {
+        isAuthenticated: false,
+        isFetching: false,
+        access_token: '',
+        token_type: '',
+        expires_in: 0,
+        userName: '',
+        errorMessage: false
+      });
     case types.LOGOUT:
       return initialState;
     default:

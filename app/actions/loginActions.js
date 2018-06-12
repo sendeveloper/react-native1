@@ -9,6 +9,12 @@ export function loginRequest(email, password) {
   }
 }
 
+export function loginInit() {
+  return {
+    type: types.LOGIN.INIT,
+  }
+}
+
 export function loginSuccess(payload) {
   Actions.push('home')
   return {

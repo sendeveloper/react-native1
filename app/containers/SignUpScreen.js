@@ -14,7 +14,8 @@ import {
 	ListItem,
 	Thumbnail,
 	View,
-	H1
+	H1,
+	Spinner
 } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -195,7 +196,8 @@ class SignUpScreen extends React.Component {
       alertVisible: false,
       currentSlide: 0,
       jobType: 0,
-      showSuccessAlert: false
+      showSuccessAlert: false,
+      registerRequest: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -209,33 +211,43 @@ class SignUpScreen extends React.Component {
 
 	handleSignUp = () => {
 		const {
-			emailAddress,
-      password,
-      passwordConfirm,
-      firstName,
-      lastName,
-      phoneNumber,
-      inviteCode,
-      userName,
-      school,
-      objective,
-      chapter
-		} = this.state;
-
-		this.props.actions.registerRequest(
-			emailAddress,
-      password,
-      passwordConfirm,
-      firstName,
-      lastName,
-      phoneNumber,
-      inviteCode,
-      userName,
-      school,
-      objective,
-      chapter
-		);
-
+				jobType, 
+				tempCode,
+				inviteCode,
+				showSuccessAlert
+			} = this.state;
+		const { register } = this.props;
+		if (jobType>0 && tempCode==inviteCode 
+				&& !showSuccessAlert && !register.isRegistered)
+		{
+			const {
+				emailAddress,
+	      password,
+	      passwordConfirm,
+	      firstName,
+	      lastName,
+	      phoneNumber,
+	      inviteCode,
+	      userName,
+	      school,
+	      objective,
+	      chapter
+			} = this.state;
+			this.setState({ registerRequest: true });
+			this.props.actions.registerRequest(
+				emailAddress,
+	      password,
+	      passwordConfirm,
+	      firstName,
+	      lastName,
+	      phoneNumber,
+	      inviteCode,
+	      userName,
+	      school,
+	      objective,
+	      chapter
+			);
+		}
 	};
 	validateEmail = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -354,13 +366,14 @@ class SignUpScreen extends React.Component {
   componentDidMount = () => {
   	this.props.actions.registerInit();
   }
-  componentWillReceiveProps = () => {
-		const { register } = this.props;
+  componentWillReceiveProps = (nextProps) => {
+		const { register } = nextProps;
   	if (register.isRegistered) {
-  		this.setState({showSuccessAlert: true});
+  		this.setState({ showSuccessAlert: true });
   		setTimeout(() => {
-  			this.setState({showSuccessAlert: false});
-  		}, 2000)
+  			// Actions.push('login');
+  			this.setState({ showSuccessAlert: false, registerRequest: false });
+  		}, 5000)
   	}
   }
  	//
@@ -380,9 +393,10 @@ class SignUpScreen extends React.Component {
 				currentSlide, 
 				jobType, 
 				tempCode,
-				inviteCode
+				inviteCode,
+				showSuccessAlert,
+				registerRequest
 			} = this.state;
-		console.log(register.isRegistered);
     return (
       <Container>
         <Content style={[styles.content, this.state.alertVisible && styles.opacity]}>
@@ -480,6 +494,8 @@ class SignUpScreen extends React.Component {
 		          	{translate('I am a', locale)}...
 		          </H1>
 						</View>
+						{showSuccessAlert && <Messages type={'success'} message={translate('You are registered successfully', locale)} />}
+						<Spacer size={10} />
 						<Button 
             	full 
             	style={jobType==1 ? styles.validateJobButton: styles.jobButton} 
@@ -519,9 +535,10 @@ class SignUpScreen extends React.Component {
             </Item>
             <Button 
             	full 
-            	style={(jobType>0 && tempCode==inviteCode) ? styles.validateButton: styles.button} 
+            	style={(jobType>0 && tempCode==inviteCode && !showSuccessAlert && !register.isRegistered) ? styles.validateButton: styles.button} 
             	onPress={() => this.handleSignUp()}>
 							<Text style={styles.buttonText}>{translate('Sign Up', locale)}</Text>
+							{(registerRequest && !showSuccessAlert) && <Spinner color='white' size="small" />}
 						</Button>
 	        </View>
 	        <Spacer size={40} />
@@ -529,8 +546,6 @@ class SignUpScreen extends React.Component {
 						square 
 						style={styles.thumbnail} 
 						source={require('../images/logo.png')} />
-					<Spacer size={10} />
-					{this.state.showSuccessAlert && <Messages type={'success'} message={translate('You are registered successfully', locale)} />}
 	        <Modal
 	          visible={this.state.alertVisible}
 	          transparent={true}

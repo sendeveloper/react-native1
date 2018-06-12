@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export default function register(state = initialState, action) {
-  console.log(action.type);
   switch(action.type) {
     case types.REGISTER.REQUEST:
       return Object.assign({}, state, {

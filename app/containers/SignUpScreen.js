@@ -25,7 +25,6 @@ import { StyleSheet, Modal } from 'react-native';
 import { translate } from '../i18n';
 import Loading from './Loading';
 import Messages from '../components/Messages';
-import Header from '../components/Header';
 import Spacer from '../components/Spacer';
 
 const styles = StyleSheet.create({

@@ -12,8 +12,7 @@ import AppConfig from '../constants/config';
 import AuthScenes from './auth';
 // import LoginScreen from '../containers/LoginScreen';
 import HomeScreen from '../containers/HomeScreen';
-// import ForgotPasswordScreen from '../containers/ForgotPasswordScreen';
-// import SignUpScreen from '../containers/SignUpScreen';
+import InteractScreen from '../containers/InteractScreen';
 import LocaleScreen from '../containers/LocaleScreen';
 
 import LoginScreen from '../containers/LoginScreen';
@@ -91,6 +90,13 @@ class UpperNetwork extends Component {
 	                icon={TabIcon}
 	                hideNavBar={true}
 	                component={HomeScreen}
+								/>
+								<Scene
+	                key="interact"
+	                title="Interact"
+	                icon={TabIcon}
+	                hideNavBar={true}
+	                component={InteractScreen}
 								/>
 							</Scene>
           	</Scene>

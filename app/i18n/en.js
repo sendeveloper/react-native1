@@ -63,5 +63,13 @@ export default {
 	'Input school': 'Input school',
 	'Input objective': 'Input objective',
 	'Input chapter': 'Input chapter',
-	'You are registered successfully': 'You are registered successfully'
+	'You are registered successfully': 'You are registered successfully',
+	'Title': 'Title',
+	'Do you want to be paired with a mentor?': 'Do you want to be paired with a mentor?',
+	'NOT NOW': 'NOT NOW',
+	'YES!': 'YES!',
+	'Drag Your Top 5 Here': 'Drag Your Top 5 Here',
+	'Your favorites will appear at the top of the screen, so you can access them quickly.': 'Your favorites will appear at the top of the screen, so you can access them quickly.',
+	'CONTACTS': 'CONTACTS',
+	'Add New RUM': 'Add New RUM'
 };

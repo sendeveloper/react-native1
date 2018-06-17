@@ -30,7 +30,6 @@ import Dimensions from 'Dimensions';
 import * as loginActions from '../actions/loginActions';
 import { translate } from '../i18n';
 import Messages from '../components/Messages';
-import Header from '../components/Header';
 import Spacer from '../components/Spacer';
 import Logo from '../images/logo.png'
 const {width, height} = Dimensions.get('window');

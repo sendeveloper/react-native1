@@ -14,18 +14,17 @@ import {
   Title,
   Icon,
   View,
-  Footer,
-  FooterTab,
   Badge,
   Thumbnail
 } from 'native-base';
 import { connect } from 'react-redux';
 import { StyleSheet, ImageBackground } from 'react-native';
+import NavigationBar from 'react-native-navbar';
 import { increment, decrement } from '../actions/counterActions';
 import { Actions } from 'react-native-router-flux';
 import { translate } from '../i18n';
 import { logout } from '../actions/loginActions';
-import NavigationBar from 'react-native-navbar';
+import CustomFooter from '../components/CustomFooter';
 
 const styles = StyleSheet.create({
   header: {
@@ -92,27 +91,6 @@ const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
     height: '100%',
-  },
-  badge: {
-    position: 'relative',
-    top: 30,
-    left: 4,
-    transform: [
-      { scale: 0.6 }
-    ],
-  },
-  footerLogo: {
-    width: 32,
-    height: 32,
-    alignSelf: "center"
-  },
-  footerActive: {
-    color: '#358A83',
-    fontSize: 12,
-  },
-  footerNormal: {
-    color: '#A1A1A1',
-    fontSize: 12,
   }
 });
 class HomeScreen extends Component {
@@ -123,6 +101,10 @@ class HomeScreen extends Component {
     const locale = 'en';
     const { user } = this.props;
     const { activePage } = this.state;
+    let notification = {
+      "title": "TOP Notification for User", 
+      "content": "Subtitle of notification"
+    };
     return (
       <Container>
         <Header style={styles.header}>
@@ -138,14 +120,18 @@ class HomeScreen extends Component {
         </Header>
         <Content>
           <View style={{padding: 6}}>
-            <View style={styles.topNotificationView}>
-              <Text style={styles.topNotificationText} >
-                { translate('TOP Notification for User', locale) }
-              </Text>
-              <Text style={styles.topNotificationTextSmall} >
-                { translate('Subtitle of notification', locale) }
-              </Text>
-            </View>
+            {
+            notification.title && (
+                <View style={styles.topNotificationView}>
+                  <Text style={styles.topNotificationText} >
+                    { translate(notification.title, locale) }
+                  </Text>
+                  <Text style={styles.topNotificationTextSmall} >
+                    { translate(notification.content, locale) }
+                  </Text>
+                </View>
+              )
+            }
             <View style={styles.subViewContainer}>
               <View style={styles.subViewLeft} >
                 <ImageBackground 
@@ -230,48 +216,35 @@ class HomeScreen extends Component {
                 </ImageBackground>
               </View>
             </View>
+            <View style={styles.subViewContainer}>
+              <View style={styles.subViewLeft} >
+                <ImageBackground 
+                style={styles.imageBackground} 
+                source={require('../images/subViewBackground.jpg')} >
+                  <Text style={styles.subViewText}>
+                    {translate('Title', locale)}
+                  </Text>
+                  <Text style={styles.subViewTextSmall}>
+                    {translate('Subtitle', locale)}
+                  </Text>
+                </ImageBackground>
+              </View>
+              <View style={styles.subViewRight} >
+                <ImageBackground 
+                style={styles.imageBackground} 
+                source={require('../images/subViewBackground.jpg')} >
+                  <Text style={styles.subViewText}>
+                    {translate('Title', locale)}
+                  </Text>
+                  <Text style={styles.subViewTextSmall}>
+                    {translate('Subtitle', locale)}
+                  </Text>
+                </ImageBackground>
+              </View>
+            </View>
           </View>
         </Content>
-        <Footer style={{backgroundColor: '#F9F9F9'}}>
-          <FooterTab>
-            <Button style={{backgroundColor: '#F9F9F9'}}>
-              <Thumbnail
-                square
-                style={styles.footerLogo} 
-                source={activePage=='interact' ? require('../images/interact_active.jpg') : require('../images/interact.jpg')} />
-              <Text style={activePage=='interact' ? styles.footerActive : styles.footerNormal}>{translate('Interact', locale)}</Text>
-            </Button>
-            <Button>
-              <Thumbnail
-                square
-                style={styles.footerLogo} 
-                source={activePage=='learn' ? require('../images/learn_active.jpg') : require('../images/learn.jpg')} />
-              <Text style={activePage=='learn' ? styles.footerActive : styles.footerNormal}>{translate('Learn', locale)}</Text>
-            </Button>
-            <Button>
-              <Thumbnail
-                square
-                style={styles.footerLogo} 
-                source={activePage=='actions' ? require('../images/actions_active.jpg') : require('../images/actions.jpg')} />
-              <Text style={activePage=='actions' ? styles.footerActive : styles.footerNormal}>{translate('Actions', locale)}</Text>
-            </Button>
-            <Button badge vertical>
-              <Badge style={styles.badge}><Text>1</Text></Badge>
-              <Thumbnail
-                square
-                style={styles.footerLogo} 
-                source={activePage=='track' ? require('../images/track_active.jpg') : require('../images/track.jpg')} />
-              <Text style={activePage=='track' ? styles.footerActive : styles.footerNormal}>{translate('Track', locale)}</Text>
-            </Button>
-            <Button>
-              <Thumbnail
-                square
-                style={styles.footerLogo} 
-                source={activePage=='self' ? require('../images/self_active.jpg') : require('../images/self.jpg')} />
-              <Text style={activePage=='self' ? styles.footerActive : styles.footerNormal}>{translate('Self', locale)}</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
+        <CustomFooter active={activePage} locale={locale}/>
       </Container>
     );
   }

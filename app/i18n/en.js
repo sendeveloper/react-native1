@@ -77,4 +77,7 @@ export default {
 	'NO': 'NO',
 	'Check back soon. We will populate this RUM with an opt-in mentor who is willing to help you and then send you a notification.': 'Check back soon. We will populate this RUM with an opt-in mentor who is willing to help you and then send you a notification.',
 	'We encourage you to do some advice meetings and find someone who will give you advice, leads and opportunities. Good luck!': 'We encourage you to do some advice meetings and find someone who will give you advice, leads and opportunities. Good luck!',
+	'My Mentor': 'My Mentor',
+	'Subtitle of some sort': 'Subtitle of some sort',
+	'Ron M': 'Ron M',
 };

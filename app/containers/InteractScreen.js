@@ -146,6 +146,58 @@ const styles = StyleSheet.create({
     color: '#358A83',
     lineHeight: 35,
   },
+  viewMentor: {
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 16,
+    paddingBottom: 16,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
+  mentorPhoto: {
+    width: 80,
+    height: 80,
+  },
+  mentorInfo: {
+    flex: 1,
+    marginLeft: 15,
+    height: 80,
+  },
+  mentorInfoText: {
+    color: '#053C5C',
+    fontSize: 20,
+    paddingBottom: 8,
+    lineHeight: 1,
+  },
+  mentorInfoTextSmall: {
+    color: '#A1A1A1',
+    fontSize: 16,
+  },
+  viewMentorList: {
+    paddingTop: 9,
+    paddingBottom: 9,
+    paddingLeft: 8,
+    paddingRight: 8,
+    borderTopWidth: 1,
+    borderColor: '#C8C7CC',
+  },
+  viewMentorListItem: {
+
+  },
+  viewMentorListItemAvatar: {
+
+  },
+  viewMentorListItemView: {
+
+  },
+  viewMentorListItemText: {
+    color: '#358A83',
+    fontSize: 11,
+
+  },
 });
 class InteractScreen extends Component {
   state = {
@@ -240,6 +292,38 @@ class InteractScreen extends Component {
   renderInfoView = (locale) => {
     return (
       <View >
+        <View style={styles.viewMentor}>
+          <Thumbnail
+            square
+            style={styles.mentorPhoto} 
+            source={require('../images/avatar1.jpg')} />
+          <View style={styles.mentorInfo} >
+            <Text style={styles.mentorInfoText}>
+              { translate('My Mentor', locale) }
+            </Text>
+            <Text style={styles.mentorInfoTextSmall}>
+              { translate('Subtitle of some sort', locale) }
+            </Text>
+          </View>
+        </View>
+        <View style={styles.viewMentorList}>
+          {[...Array(10)].map((x, i) => 
+            (
+              <View style={styles.viewMentorListItem} key={i}>
+                <Thumbnail
+                  square
+                  style={styles.viewMentorListItemAvatar} 
+                  source={require('../images/avatar2.jpg')} />
+                <View style={styles.viewMentorListItemView} >
+                  <Text style={styles.viewMentorListItemText}>
+                    { translate('Ron M', locale) }
+                  </Text>
+                </View>
+              </View>
+            )
+          )}
+        </View>
+        { this.renderContact(locale) }
       </View>
       )
   }

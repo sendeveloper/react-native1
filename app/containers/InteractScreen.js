@@ -183,12 +183,18 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     borderTopWidth: 1,
     borderColor: '#C8C7CC',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
   },
   viewMentorListItem: {
-
+    flex: 1,
   },
   viewMentorListItemAvatar: {
-
+    width: 60,
+    height: 60,
+    marginRight: 14,
   },
   viewMentorListItemView: {
 
@@ -196,7 +202,21 @@ const styles = StyleSheet.create({
   viewMentorListItemText: {
     color: '#358A83',
     fontSize: 11,
-
+  },
+  viewMentorListPlus: {
+    flex: 1,
+    borderStyle: 'dashed',
+    borderWidth: 1,
+    borderColor: '#358A83',
+    borderRadius: 6,
+    height: 60,
+    width: 60,
+    marginRight: 14,
+    padding: 20 
+  },
+  viewMentorListPlusThumb: {
+    width: 20,
+    height: 20
   },
 });
 class InteractScreen extends Component {
@@ -307,7 +327,7 @@ class InteractScreen extends Component {
           </View>
         </View>
         <View style={styles.viewMentorList}>
-          {[...Array(10)].map((x, i) => 
+          {[...Array(3)].map((x, i) => 
             (
               <View style={styles.viewMentorListItem} key={i}>
                 <Thumbnail
@@ -322,6 +342,18 @@ class InteractScreen extends Component {
               </View>
             )
           )}
+          <View style={styles.viewMentorListPlus}>
+            <Thumbnail
+              square
+              style={styles.viewMentorListPlusThumb} 
+              source={require('../images/plus.png')} />
+          </View>
+          <View style={styles.viewMentorListPlus}>
+            <Thumbnail
+              square
+              style={styles.viewMentorListPlusThumb} 
+              source={require('../images/plus.png')} />
+          </View>
         </View>
         { this.renderContact(locale) }
       </View>

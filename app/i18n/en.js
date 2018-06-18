@@ -81,5 +81,15 @@ export default {
 	'Subtitle of some sort': 'Subtitle of some sort',
 	'Ron M': 'Ron M',
 	'RUM': 'RUM',
-	
+	'PROFILE': 'PROFILE',
+	'TASKS': 'TASKS',
+	'NOTES': 'NOTES',
+	'HISTORY': 'HISTORY',
+	'This user has not shared their Birkman results with you.': 'This user has not shared their Birkman results with you.',
+	'REQUEST': 'REQUEST',
+	'Birkman Report': 'Birkman Report',
+	'SHARE': 'SHARE',
+	'my Birkman Report': 'my Birkman Report',
+	'Need Help?': 'Need Help?',
+	'Get help interpreting your Birkman.': 'Get help interpreting your Birkman.',
 };

@@ -15,7 +15,11 @@ import {
   Icon,
   View,
   Badge,
-  Thumbnail
+  Thumbnail,
+  Tab,
+  Tabs,
+  Grid,
+  Row
 } from 'native-base';
 import { connect } from 'react-redux';
 import { StyleSheet, ImageBackground, Alert } from 'react-native';
@@ -94,8 +98,57 @@ const styles = StyleSheet.create({
     height: 30,
   },
   rumTabArea: {
-    width: '100%',
-  }
+
+  },
+  profileRow: {
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  profileStatus: {
+    color: '#053C5C',
+    fontSize: 16,
+    alignSelf: 'center',
+    paddingTop: 39,
+    paddingBottom: 27,
+    maxWidth: 240,
+  },
+  profileButton: {
+    backgroundColor: '#053C5C',
+    height: 32,
+    paddingTop:  3,
+    paddingBottom: 3,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 10,
+  },
+  profileButtonText: {
+    color: '#F9F9F9',
+    fontSize: 14,
+    paddingRight: 0,
+  },
+  profileButtonTextSmall: {
+    color: '#F9F9F9',
+    fontSize: 12,
+    paddingLeft: 5,
+  },
+  profileHelpButton: {
+    alignSelf: 'center',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    maxWidth: 222,
+  },
+  profileHelpButtonText: {
+    color: '#053C5C',
+    fontSize: 13,
+    textAlign: 'center',
+    width: 222,
+  },
+  profileHelpButtonTextSmall: {
+    color: '#053C5C',
+    fontSize: 11,
+    textAlign: 'center',
+    width: 222,
+  },
 });
 class InteractRumScreen extends Component {
   state = {
@@ -103,6 +156,10 @@ class InteractRumScreen extends Component {
   };
   constructor(props) {
     super(props);
+    this.renderTabProfile = this.renderTabProfile.bind(this);
+    this.renderTabTasks = this.renderTabTasks.bind(this);
+    this.renderTabNotes = this.renderTabNotes.bind(this);
+    this.renderTabHistory = this.renderTabHistory.bind(this);
   }
   goBack = () => {
     this.props.navigation.dispatch(NavigationActions.back());
@@ -166,10 +223,110 @@ class InteractRumScreen extends Component {
             </View>
           </ImageBackground>
         </View>
-        <View style={styles.rumTabArea}>
-        </View>
+        <Tabs 
+          style={styles.rumTabArea} 
+          initialPage={0}
+          tabContainerStyle={{ height: 30, borderBottomWidth: 0, shadowRadius: 0, shadowOpacity: 0 }} 
+          tabBarUnderlineStyle={{ borderBottomWidth:1, borderColor: '#053C5C' }} >
+          <Tab 
+            tabStyle={{backgroundColor: 'white', height: 30, borderBottomWidth:1, borderColor: '#C8C7CC'}} 
+            textStyle={{color: '#7E888D', fontSize: 12}} 
+            activeTabStyle={{backgroundColor: 'white'}} 
+            activeTextStyle={{ color: '#053C5C', fontWeight: 'normal', fontSize: 12 }}
+            heading={ translate('PROFILE', locale) } >
+            { this.renderTabProfile(locale) }
+          </Tab>
+          <Tab 
+            tabStyle={{backgroundColor: 'white', height: 30, borderBottomWidth:1, borderColor: '#C8C7CC'}} 
+            textStyle={{color: '#7E888D', fontSize: 12}} 
+            activeTabStyle={{backgroundColor: 'white', borderBottomWidth: 2, borderColor: '#053C5C'}} 
+            activeTextStyle={{color: '#053C5C', fontWeight: 'normal', fontSize: 12}}
+            heading={ translate('TASKS', locale) }>
+            { this.renderTabTasks(locale) }
+          </Tab>
+          <Tab 
+            tabStyle={{backgroundColor: 'white', height: 30, borderBottomWidth:1, borderColor: '#C8C7CC'}} 
+            textStyle={{color: '#7E888D', fontSize: 12}} 
+            activeTabStyle={{backgroundColor: 'white', borderBottomWidth: 2, borderColor: '#053C5C'}} 
+            activeTextStyle={{color: '#053C5C', fontWeight: 'normal', fontSize: 12}}
+            heading={ translate('NOTES', locale) }>
+            { this.renderTabNotes(locale) }
+          </Tab>
+          <Tab 
+            tabStyle={{backgroundColor: 'white', height: 30, borderBottomWidth:1, borderColor: '#C8C7CC'}} 
+            textStyle={{color: '#7E888D', fontSize: 12}} 
+            activeTabStyle={{backgroundColor: 'white', borderBottomWidth: 2, borderColor: '#053C5C'}} 
+            activeTextStyle={{color: '#053C5C', fontWeight: 'normal', fontSize: 12}}
+            heading={ translate('HISTORY', locale) }>
+            { this.renderTabHistory(locale) }
+          </Tab>
+        </Tabs>
       </View>
     )
+  }
+  renderTabProfile = (locale) => {
+    return (
+      <Grid>
+        <Row style={styles.profileRow}>
+          <Text style={styles.profileStatus}>
+            {translate('This user has not shared their Birkman results with you.', locale)}
+          </Text>
+        </Row>
+        <Row style={styles.profileRow}>
+          <Button style={styles.profileButton}>
+            <Text style={styles.profileButtonText}>
+              { translate('REQUEST', locale) }
+            </Text>
+            <Text style={styles.profileButtonTextSmall}>
+              { translate('Birkman Report', locale) }
+            </Text>
+          </Button>
+        </Row>
+        <Row style={styles.profileRow}>
+          <Button style={styles.profileButton}>
+            <Text style={styles.profileButtonText}>
+              { translate('SHARE', locale) }
+            </Text>
+            <Text style={styles.profileButtonTextSmall}>
+              { translate('my Birkman Report', locale) }
+            </Text>
+          </Button>
+        </Row>
+        <Row style={styles.profileRow}>
+          <Button 
+            transparent 
+            style={styles.profileHelpButton} >
+            <Text style={styles.profileHelpButtonText}>
+              { translate('Need Help?', locale) }
+            </Text>
+            <Text style={styles.profileHelpButtonTextSmall}>
+              { translate('Get help interpreting your Birkman.', locale) }
+            </Text>
+          </Button>
+        </Row>
+      </Grid>
+    )  
+  }
+  renderTabTasks = (locale) => {
+    return (
+      <Grid>
+        <Text>Tasks</Text>
+      </Grid>
+    )  
+  }
+  renderTabNotes = (locale) => {
+    return (
+      <Grid>
+        <Text>Notes</Text>
+      </Grid>
+    )  
+  }
+  renderTabHistory = (locale) => {
+    return (
+      <Grid>
+        <Text>History</Text>
+      </Grid>
+    )  
   }
   render() {
     const locale = 'en';
@@ -193,7 +350,7 @@ class InteractRumScreen extends Component {
             </Button>
           </Right>
         </Header>
-        <Content>
+        <Content style={{ backgroundColor: '#FFF' }}>
           { this.renderView(locale) }
         </Content>
         <Toast ref="toast"/>

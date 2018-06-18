@@ -92,4 +92,6 @@ export default {
 	'my Birkman Report': 'my Birkman Report',
 	'Need Help?': 'Need Help?',
 	'Get help interpreting your Birkman.': 'Get help interpreting your Birkman.',
+	'Most Recent Activity': 'Most Recent Activity',
+	
 };

@@ -149,6 +149,37 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: 222,
   },
+  recentActivityTitleRow: {
+
+  },
+  recentActivityTitleText: {
+    color: '#7E888D',
+    fontSize: 12,
+  },
+  recentActivityRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
+  recentActivityRowImage: {
+    flex: 1,
+  },
+  recentActivityRowInfo: {
+    flex: 1,
+  },
+  recentActivityRowInfoDate: {
+    fontSize: 6,
+    color: '#7E888D',
+  },
+  recentActivityRowInfoWay: {
+    fontSize: 10,
+    color: '#000000',
+  },
+  recentActivityRowInfoMessage: {
+    fontSize: 8,
+    color: '#8C8C8C',
+  },
 });
 class InteractRumScreen extends Component {
   state = {
@@ -324,7 +355,28 @@ class InteractRumScreen extends Component {
   renderTabHistory = (locale) => {
     return (
       <Grid>
-        <Text>History</Text>
+        <Row style={styles.recentActivityTitleRow}>
+          <Text style={styles.recentActivityTitleText}>
+            {translate('Most Recent Activity', locale)}
+          </Text>
+        </Row>
+        <Row style={styles.recentActivityRow}>
+          <Thumbnail
+            square
+            style={styles.recentActivityRowImage} 
+            source={require('../images/avatar1.jpg')} />
+          <View style={styles.recentActivityRowInfo} >
+            <Text style={styles.recentActivityRowInfoDate}>
+              { translate('My Mentor', locale) }
+            </Text>
+            <Text style={styles.recentActivityRowInfoWay}>
+              { translate('Subtitle of some sort', locale) }
+            </Text>
+            <Text style={styles.recentActivityRowInfoMessage}>
+              { translate('Subtitle of some sort', locale) }
+            </Text>
+          </View>
+        </Row>
       </Grid>
     )  
   }

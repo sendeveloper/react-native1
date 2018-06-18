@@ -41,7 +41,36 @@ const styles = StyleSheet.create({
     top: -1,
     fontSize: 17,
     color: '#F9F9F9',
-  }
+  },
+  rumPhotoArea: {
+    width: '100%',
+    height: 205,
+  },
+  rumBackground: {
+    width: '100%',
+    height: '100%',
+  },
+  rumPhoto: {
+    width: 80,
+    height: 80,
+    marginTop: 11,
+    alignSelf: 'center',
+  },
+  rumInfoName: {
+    color: '#053C5C',
+    fontSize: 17,
+    alignSelf: 'center',
+  },
+  rumInfoDate: {
+    color: '#A1A1A1',
+    fontSize: 11,
+    alignSelf: 'center',
+  },
+  rumInfoContact: {
+    color: '#053C5C',
+    fontSize: 11,
+    alignSelf: 'center',
+  },
 });
 class InteractRumScreen extends Component {
   state = {
@@ -56,6 +85,27 @@ class InteractRumScreen extends Component {
   renderView = (locale) => {
     return (
       <View>
+        <View style={styles.rumPhotoArea}>
+          <ImageBackground 
+            style={styles.rumBackground} 
+            source={require('../images/rum_profile_background.png')} >
+            <Thumbnail
+              square
+              style={styles.rumPhoto} 
+              source={require('../images/rum_profile_photo.png')} />
+            <View style={styles.rumInfo} >
+              <Text style={styles.rumInfoName}>
+                First Last
+              </Text>
+              <Text style={styles.rumInfoDate}>
+                Member since 06/06/2018
+              </Text>
+              <Text style={styles.rumInfoContact}>
+                Contact Info
+              </Text>
+            </View>
+          </ImageBackground>
+        </View>
       </View>
     )
   }
@@ -82,7 +132,7 @@ class InteractRumScreen extends Component {
           </Right>
         </Header>
         <Content>
-          
+          { this.renderView(locale) }
         </Content>
         <Toast ref="toast"/>
         <CustomFooter active={activePage} locale={locale}/>

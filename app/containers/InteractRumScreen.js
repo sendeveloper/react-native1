@@ -60,6 +60,8 @@ const styles = StyleSheet.create({
     color: '#053C5C',
     fontSize: 17,
     alignSelf: 'center',
+    marginTop: 10,
+    lineHeight: 19,
   },
   rumInfoDate: {
     color: '#A1A1A1',
@@ -71,6 +73,29 @@ const styles = StyleSheet.create({
     fontSize: 11,
     alignSelf: 'center',
   },
+  contactButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    width: 192,
+    alignSelf: 'center',
+    marginTop: 14,
+  },
+  contactButtonEach: {
+    width: 30,
+    height: 30,
+    marginLeft: 17,
+    marginRight: 17,
+    flex: 1
+  },
+  contactButtonImage: {
+    width: 30,
+    height: 30,
+  },
+  rumTabArea: {
+    width: '100%',
+  }
 });
 class InteractRumScreen extends Component {
   state = {
@@ -81,6 +106,9 @@ class InteractRumScreen extends Component {
   }
   goBack = () => {
     this.props.navigation.dispatch(NavigationActions.back());
+  }
+  contactChat = () => {
+    console.log('chat');
   }
   renderView = (locale) => {
     return (
@@ -104,7 +132,41 @@ class InteractRumScreen extends Component {
                 Contact Info
               </Text>
             </View>
+            <View style={styles.contactButtons}>
+              <Button
+                transparent
+                style={styles.contactButtonEach}
+                onPress={this.contactChat}
+                >
+                <Thumbnail
+                  square
+                  style={styles.contactButtonImage} 
+                  source={require('../images/rum_profile_chat.png')} />
+              </Button>
+              <Button
+                transparent
+                style={styles.contactButtonEach}
+                onPress={this.contactChat}
+                >
+                <Thumbnail
+                  square
+                  style={styles.contactButtonImage} 
+                  source={require('../images/rum_profile_call.png')} />
+              </Button>
+              <Button
+                transparent
+                style={styles.contactButtonEach}
+                onPress={this.contactChat}
+                >
+                <Thumbnail
+                  square
+                  style={styles.contactButtonImage} 
+                  source={require('../images/rum_profile_mail.png')} />
+              </Button>
+            </View>
           </ImageBackground>
+        </View>
+        <View style={styles.rumTabArea}>
         </View>
       </View>
     )

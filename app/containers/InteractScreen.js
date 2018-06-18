@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     color: '#053C5C',
     fontSize: 20,
     paddingBottom: 8,
-    lineHeight: 1,
+    lineHeight: 22,
   },
   mentorInfoTextSmall: {
     color: '#A1A1A1',
@@ -190,11 +190,13 @@ const styles = StyleSheet.create({
   },
   viewMentorListItem: {
     flex: 1,
+    marginRight: 14,
+    width: 60,
+    height: 75,
   },
   viewMentorListItemAvatar: {
     width: 60,
     height: 60,
-    marginRight: 14,
   },
   viewMentorListItemView: {
 
@@ -204,15 +206,14 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   viewMentorListPlus: {
-    flex: 1,
     borderStyle: 'dashed',
     borderWidth: 1,
     borderColor: '#358A83',
     borderRadius: 6,
     height: 60,
     width: 60,
-    marginRight: 14,
-    padding: 20 
+    marginBottom: 15,
+    padding: 20,
   },
   viewMentorListPlusThumb: {
     width: 20,
@@ -230,6 +231,7 @@ class InteractScreen extends Component {
     this.findMeMentor = this.findMeMentor.bind(this);
     this.renderView = this.renderView.bind(this);
     this.renderContact = this.renderContact.bind(this);
+    this.renderInfoContact = this.renderInfoContact.bind(this);
   }
   goBack = () => {
     this.props.navigation.dispatch(NavigationActions.back());
@@ -342,20 +344,24 @@ class InteractScreen extends Component {
               </View>
             )
           )}
-          <View style={styles.viewMentorListPlus}>
-            <Thumbnail
-              square
-              style={styles.viewMentorListPlusThumb} 
-              source={require('../images/plus.png')} />
-          </View>
-          <View style={styles.viewMentorListPlus}>
-            <Thumbnail
-              square
-              style={styles.viewMentorListPlusThumb} 
-              source={require('../images/plus.png')} />
-          </View>
+          <Button transparent style={styles.viewMentorListItem} key={4}>
+            <View style={styles.viewMentorListPlus}>
+              <Thumbnail
+                square
+                style={styles.viewMentorListPlusThumb} 
+                source={require('../images/plus.png')} />
+            </View>
+          </Button>
+          <Button transparent style={styles.viewMentorListItem} key={5}>
+            <View style={styles.viewMentorListPlus}>
+              <Thumbnail
+                square
+                style={styles.viewMentorListPlusThumb} 
+                source={require('../images/plus.png')} />
+            </View>
+          </Button>
         </View>
-        { this.renderContact(locale) }
+        { this.renderInfoContact(locale) }
       </View>
       )
   }
@@ -375,6 +381,63 @@ class InteractScreen extends Component {
               <View style={styles.contactButtonView} >
                 <Text style={styles.contactButtonText}>
                   { translate('Add New RUM', locale) }
+                </Text>
+              </View>
+            </Button>
+          )
+        )}
+      </View>
+    )
+  }
+  renderInfoContact = (locale) => {
+    let list = [
+      {
+        id: 1,
+        url: require('../images/contact_avatar1.jpg'),
+        name: 'Charley Donovan'
+      },
+      {
+        id: 2,
+        url: require('../images/contact_avatar2.jpg'),
+        name: 'Selina Keiser'
+      },
+      {
+        id: 3,
+        url: require('../images/contact_avatar3.jpg'),
+        name: 'Nate Miller'
+      },
+      {
+        id: 4,
+        url: require('../images/contact_avatar4.jpg'),
+        name: 'Tim Ziebarth'
+      },
+    ];
+    return (
+      <View style={styles.contact}>
+        <Text style={styles.contactHeader}>
+          { translate('CONTACTS', locale) }
+        </Text>
+        <Button transparent style={styles.contactButton} key={0}>
+          <Thumbnail
+            square
+            style={styles.contactButtonPlus} 
+            source={require('../images/contact_button.jpg')} />
+          <View style={styles.contactButtonView} >
+            <Text style={styles.contactButtonText}>
+              { translate('Add New RUM', locale) }
+            </Text>
+          </View>
+        </Button>
+        {list.map((x, i) =>
+          (
+            <Button transparent style={styles.contactButton} key={x.id}>
+              <Thumbnail
+                square
+                style={styles.contactButtonPlus} 
+                source={x.url} />
+              <View style={styles.contactButtonView} >
+                <Text style={styles.contactButtonText}>
+                  {x.name}
                 </Text>
               </View>
             </Button>

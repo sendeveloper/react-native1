@@ -71,5 +71,10 @@ export default {
 	'Drag Your Top 5 Here': 'Drag Your Top 5 Here',
 	'Your favorites will appear at the top of the screen, so you can access them quickly.': 'Your favorites will appear at the top of the screen, so you can access them quickly.',
 	'CONTACTS': 'CONTACTS',
-	'Add New RUM': 'Add New RUM'
+	'Add New RUM': 'Add New RUM',
+	'Do you want to be paired with a mentor? YES or NO.': 'Do you want to be paired with a mentor? YES or NO.',
+	'YES': 'YES',
+	'NO': 'NO',
+	'Check back soon. We will populate this RUM with an opt-in mentor who is willing to help you and then send you a notification.': 'Check back soon. We will populate this RUM with an opt-in mentor who is willing to help you and then send you a notification.',
+	'We encourage you to do some advice meetings and find someone who will give you advice, leads and opportunities. Good luck!': 'We encourage you to do some advice meetings and find someone who will give you advice, leads and opportunities. Good luck!',
 };

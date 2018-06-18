@@ -18,7 +18,8 @@ import {
   Thumbnail
 } from 'native-base';
 import { connect } from 'react-redux';
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground, Alert } from 'react-native';
+import Toast, {DURATION} from 'react-native-easy-toast'
 import NavigationBar from 'react-native-navbar';
 import { NavigationActions } from 'react-navigation';
 import { increment, decrement } from '../actions/counterActions';
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     paddingRight: 15,
   },
   dragRect: {
-    borderStyle: 'dotted',
+    borderStyle: 'dashed',
     borderWidth: 1,
     borderColor: '#358A83',
     width: 60,
@@ -126,7 +127,6 @@ const styles = StyleSheet.create({
   },
   contactButton: {
     width: '100%',
-    textAlign: 'left',
     padding: 0,
     marginBottom: 9,
   },
@@ -149,10 +149,123 @@ const styles = StyleSheet.create({
 });
 class InteractScreen extends Component {
   state = {
-    activePage: 'interact'
+    activePage: 'interact',
+    pageTab: 'setup',
+    findMeState: 0
   };
+  constructor(props) {
+    super(props);
+    this.findMeMentor = this.findMeMentor.bind(this);
+    this.renderView = this.renderView.bind(this);
+    this.renderContact = this.renderContact.bind(this);
+  }
   goBack = () => {
     this.props.navigation.dispatch(NavigationActions.back());
+  }
+  findMeMentor = (locale) => {
+    Alert.alert(
+      translate('Interact', locale),
+      translate('Do you want to be paired with a mentor? YES or NO.', locale),
+      [
+        {
+          text: translate('NO', locale), 
+          onPress: () => this.findMeMentorNo(locale),
+          style: 'cancel'
+        },
+        {
+          text: translate('YES', locale), 
+          onPress: () => this.findMeMentorYes(locale)
+        },
+      ],
+      { cancelable: false }
+    )
+  }
+  findMeMentorYes = (locale) => {
+    this.setState({ findMeState: 1 });
+    this.refs.toast.show( translate('Check back soon. We will populate this RUM with an opt-in mentor who is willing to help you and then send you a notification.', locale), 500, () => {
+      this.setState({ pageTab: 'info' });
+    });
+  }
+  findMeMentorNo = (locale) => {
+    this.setState({ findMeState: 2 });
+    this.refs.toast.show( translate('We encourage you to do some advice meetings and find someone who will give you advice, leads and opportunities. Good luck!', locale), 500 );
+  }
+  renderView = (locale) => {
+    let { pageTab } = this.state;
+    if (pageTab == 'setup')
+      return this.renderSetupView(locale);
+    else if (pageTab == 'info')
+      return this.renderInfoView(locale);
+  }
+  renderSetupView = (locale) => {
+    return (
+        <View>
+          <View style={styles.viewAlert}>
+            <Text style={styles.viewAlertText} >
+              { translate('Do you want to be paired with a mentor?', locale) }
+            </Text>
+            <Button 
+              style={styles.wantButtonYes}
+              onPress={() => this.findMeMentor(locale)} >
+              <Text style={styles.buttonText}>
+                { translate('YES!', locale) }
+              </Text>
+              <Text style={styles.buttonTextSmall}>Find me a mentor.</Text>
+            </Button>
+            <Button 
+              transparent style={styles.wantButtonNo}
+              onPress={() => this.findMeMentorNo(locale)} >
+              <Text style={styles.viewAlertTextSmall} >
+                { translate('NOT NOW', locale) }
+              </Text>
+            </Button>
+          </View>
+          <View style={styles.dragForm}>
+            <View style={styles.dragFormLeft}>
+              <View style={styles.dragRect} />
+            </View>
+            <View style={styles.dragFormBody}>
+              <Text style={styles.dragText}>
+                { translate('Drag Your Top 5 Here', locale) }
+              </Text>
+              <Text style={styles.dragTextSmall}>
+                { translate('Your favorites will appear at the top of the screen, so you can access them quickly.', locale) }
+              </Text>
+            </View>
+          </View>
+          { this.renderContact(locale) }
+        </View>
+      )
+  }
+  renderInfoView = (locale) => {
+    return (
+      <View >
+      </View>
+      )
+  }
+  renderContact = (locale) => {
+    return (
+      <View style={styles.contact}>
+        <Text style={styles.contactHeader}>
+          { translate('CONTACTS', locale) }
+        </Text>
+        {[...Array(10)].map((x, i) =>
+          (
+            <Button transparent style={styles.contactButton} key={i}>
+              <Thumbnail
+                square
+                style={styles.contactButtonPlus} 
+                source={require('../images/contact_button.jpg')} />
+              <View style={styles.contactButtonView} >
+                <Text style={styles.contactButtonText}>
+                  { translate('Add New RUM', locale) }
+                </Text>
+              </View>
+            </Button>
+          )
+        )}
+      </View>
+    )
   }
   render() {
     const locale = 'en';
@@ -169,61 +282,16 @@ class InteractScreen extends Component {
           <Body style={{ flex: 3 }}>
             <Title style={styles.headerTitle}>{translate('Interact', locale)}</Title>
           </Body>
-          <Right style={{ flex: 1 }} />
+          <Right style={{ flex: 1 }}>
+            <Button transparent onPress={this.props.logout}>
+              <Icon name="more" />
+            </Button>
+          </Right>
         </Header>
         <Content>
-          <View>
-            <View style={styles.viewAlert}>
-              <Text style={styles.viewAlertText} >
-                { translate('Do you want to be paired with a mentor?', locale) }
-              </Text>
-              <Button style={styles.wantButtonYes}>
-                <Text style={styles.buttonText}>
-                  { translate('YES!', locale) }
-                </Text>
-                <Text style={styles.buttonTextSmall}>Find me a mentor.</Text>
-              </Button>
-              <Button transparent style={styles.wantButtonNo}>
-                <Text style={styles.viewAlertTextSmall} >
-                  { translate('NOT NOW', locale) }
-                </Text>
-              </Button>
-            </View>
-            <View style={styles.dragForm}>
-              <View style={styles.dragFormLeft}>
-                <View style={styles.dragRect} />
-              </View>
-              <View style={styles.dragFormBody}>
-                <Text style={styles.dragText}>
-                  { translate('Drag Your Top 5 Here', locale) }
-                </Text>
-                <Text style={styles.dragTextSmall}>
-                  { translate('Your favorites will appear at the top of the screen, so you can access them quickly.', locale) }
-                </Text>
-              </View>
-            </View>
-            <View style={styles.contact}>
-              <Text style={styles.contactHeader}>
-                { translate('CONTACTS', locale) }
-              </Text>
-              {[...Array(10)].map((x, i) =>
-                (
-                  <Button transparent style={styles.contactButton} key={i}>
-                    <Thumbnail
-                      square
-                      style={styles.contactButtonPlus} 
-                      source={require('../images/contact_button.jpg')} />
-                    <View style={styles.contactButtonView} >
-                      <Text style={styles.contactButtonText}>
-                        { translate('Add New RUM', locale) }
-                      </Text>
-                    </View>
-                  </Button>
-                )
-              )}
-            </View>
-          </View>
+          { this.renderView(locale) }
         </Content>
+        <Toast ref="toast"/>
         <CustomFooter active={activePage} locale={locale}/>
       </Container>
     );

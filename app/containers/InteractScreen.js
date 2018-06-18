@@ -373,7 +373,11 @@ class InteractScreen extends Component {
         </Text>
         {[...Array(10)].map((x, i) =>
           (
-            <Button transparent style={styles.contactButton} key={i}>
+            <Button 
+              transparent 
+              style={styles.contactButton} 
+              key={i}
+              onPress={ () => this.contactNew() } >
               <Thumbnail
                 square
                 style={styles.contactButtonPlus} 
@@ -417,7 +421,10 @@ class InteractScreen extends Component {
         <Text style={styles.contactHeader}>
           { translate('CONTACTS', locale) }
         </Text>
-        <Button transparent style={styles.contactButton} key={0}>
+        <Button 
+          transparent 
+          style={styles.contactButton} key={0}
+          onPress={ () => this.contactNew() } >
           <Thumbnail
             square
             style={styles.contactButtonPlus} 
@@ -430,7 +437,11 @@ class InteractScreen extends Component {
         </Button>
         {list.map((x, i) =>
           (
-            <Button transparent style={styles.contactButton} key={x.id}>
+            <Button 
+              transparent 
+              style={styles.contactButton} 
+              key={x.id}
+              onPress={ () => this.contactNew() } >
               <Thumbnail
                 square
                 style={styles.contactButtonPlus} 
@@ -445,6 +456,9 @@ class InteractScreen extends Component {
         )}
       </View>
     )
+  }
+  contactNew = () => {
+    Actions.push('rum');
   }
   render() {
     const locale = 'en';

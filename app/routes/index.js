@@ -13,6 +13,7 @@ import AuthScenes from './auth';
 // import LoginScreen from '../containers/LoginScreen';
 import HomeScreen from '../containers/HomeScreen';
 import InteractScreen from '../containers/InteractScreen';
+import InteractRumScreen from '../containers/InteractRumScreen';
 import LocaleScreen from '../containers/LocaleScreen';
 
 import LoginScreen from '../containers/LoginScreen';
@@ -97,6 +98,13 @@ class UpperNetwork extends Component {
 	                icon={TabIcon}
 	                hideNavBar={true}
 	                component={InteractScreen}
+								/>
+								<Scene
+	                key="rum"
+	                title="Interact"
+	                icon={TabIcon}
+	                hideNavBar={true}
+	                component={InteractRumScreen}
 								/>
 							</Scene>
           	</Scene>

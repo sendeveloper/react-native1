@@ -80,4 +80,6 @@ export default {
 	'My Mentor': 'My Mentor',
 	'Subtitle of some sort': 'Subtitle of some sort',
 	'Ron M': 'Ron M',
+	'RUM': 'RUM',
+	
 };

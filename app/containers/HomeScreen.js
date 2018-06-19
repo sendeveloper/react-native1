@@ -248,7 +248,7 @@ class HomeScreen extends Component {
                 </Button>) : 
                 (<View style={styles.videoContainer}>
                   <Video
-                   source={ require('../images/a.mp4') }
+                   source={ require('../images/201605-Acacia-RUMs.mp4') }
                    shouldPlay = { this.state.shouldPlay }
                    resizeMode="cover"
                    style={{ width: '100%', height: 178 }}

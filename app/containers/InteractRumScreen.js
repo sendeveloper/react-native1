@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 10,
+    alignSelf: 'center',
   },
   profileButtonText: {
     color: '#F9F9F9',
@@ -326,10 +327,39 @@ const styles = StyleSheet.create({
     width: 16,
     height: 16,
   },
+  slideDown: {
+    marginLeft: 25,
+  },
+  slideDownButton: {
+    paddingTop: 0,
+    paddingBottom: 0,
+    width: '100%',
+    borderBottomWidth: 1,
+    borderColor: '#C8C7CC',
+    height: 42,
+  },
+  slideDownButtonText: {
+    top: 8,
+    paddingLeft: 0,
+    fontSize: 12,
+    color: '#053C5C',
+  },
+  slideDownButtonIcon: {
+    color: '#8C8C8C',
+    fontSize: 13,
+    top: -6,
+    alignSelf: 'flex-end',
+  },
+  slideDownView: {
+    marginTop: 32,
+    width: '100%',
+    alignSelf: 'center',
+  }
 });
 class InteractRumScreen extends Component {
   state = {
     activePage: 'interact',
+    profileIndex: 0,
   };
   constructor(props) {
     super(props);
@@ -449,48 +479,138 @@ class InteractRumScreen extends Component {
       </View>
     )
   }
+  requestChangeProfileIndex = (id) => {
+    this.setState({ profileIndex: id });
+  }
   renderTabProfile = (locale) => {
-    return (
-      <Grid>
-        <Row style={styles.profileRow}>
-          <Text style={styles.profileStatus}>
-            {translate('This user has not shared their Birkman results with you.', locale)}
-          </Text>
-        </Row>
-        <Row style={styles.profileRow}>
-          <Button style={styles.profileButton}>
-            <Text style={styles.profileButtonText}>
-              { translate('REQUEST', locale) }
+    let { profileIndex } = this.state;
+    if (profileIndex === 0){
+      return (
+        <Grid>
+          <Row style={styles.profileRow}>
+            <Text style={styles.profileStatus}>
+              {translate('This user has not shared their Birkman results with you.', locale)}
             </Text>
-            <Text style={styles.profileButtonTextSmall}>
-              { translate('Birkman Report', locale) }
-            </Text>
-          </Button>
-        </Row>
-        <Row style={styles.profileRow}>
-          <Button style={styles.profileButton}>
-            <Text style={styles.profileButtonText}>
-              { translate('SHARE', locale) }
-            </Text>
-            <Text style={styles.profileButtonTextSmall}>
-              { translate('my Birkman Report', locale) }
-            </Text>
-          </Button>
-        </Row>
-        <Row style={styles.profileRow}>
-          <Button 
-            transparent 
-            style={styles.profileHelpButton} >
-            <Text style={styles.profileHelpButtonText}>
-              { translate('Need Help?', locale) }
-            </Text>
-            <Text style={styles.profileHelpButtonTextSmall}>
-              { translate('Get help interpreting your Birkman.', locale) }
-            </Text>
-          </Button>
-        </Row>
-      </Grid>
-    )  
+          </Row>
+          <Row style={styles.profileRow}>
+            <Button 
+              style={styles.profileButton}
+              onPress={() => this.requestChangeProfileIndex(1)} >
+              <Text style={styles.profileButtonText}>
+                { translate('REQUEST', locale) }
+              </Text>
+              <Text style={styles.profileButtonTextSmall}>
+                { translate('Birkman Report', locale) }
+              </Text>
+            </Button>
+          </Row>
+          <Row style={styles.profileRow}>
+            <Button style={styles.profileButton}>
+              <Text style={styles.profileButtonText}>
+                { translate('SHARE', locale) }
+              </Text>
+              <Text style={styles.profileButtonTextSmall}>
+                { translate('my Birkman Report', locale) }
+              </Text>
+            </Button>
+          </Row>
+          <Row style={styles.profileRow}>
+            <Button 
+              transparent 
+              style={styles.profileHelpButton} >
+              <Text style={styles.profileHelpButtonText}>
+                { translate('Need Help?', locale) }
+              </Text>
+              <Text style={styles.profileHelpButtonTextSmall}>
+                { translate('Get help interpreting your Birkman.', locale) }
+              </Text>
+            </Button>
+          </Row>
+        </Grid>
+      )
+    }
+    else
+    {
+      let icons = [
+        "ios-arrow-down",
+        "ios-arrow-forward"
+      ]
+      return (
+        <Grid>
+          <Row style={styles.slideDown}>
+            <Button 
+              transparent
+              style={styles.slideDownButton} 
+              onPress={() => this.requestChangeProfileIndex(1)} >
+              <Text style={styles.slideDownButtonText}>
+                { translate('Birkman Map', locale) }
+              </Text>
+              <Icon 
+                style={styles.slideDownButtonIcon} 
+                name={(profileIndex===1) ? icons[0] : icons[1]} />
+            </Button>
+            <View>
+
+            </View>
+          </Row>
+          <Row style={styles.slideDown}>
+            <Button 
+              transparent
+              style={styles.slideDownButton} 
+              onPress={() => this.requestChangeProfileIndex(2)} >
+              <Text style={styles.slideDownButtonText}>
+                { translate('Birkman Interests', locale) }
+              </Text>
+              <Icon 
+                style={styles.slideDownButtonIcon} 
+                name={(profileIndex===2) ? icons[0] : icons[1]} />
+            </Button>
+            <View>
+              
+            </View>
+          </Row>
+          <Row style={styles.slideDown}>
+            <Button 
+              transparent
+              style={styles.slideDownButton} 
+              onPress={() => this.requestChangeProfileIndex(3)} >
+              <Text style={styles.slideDownButtonText}>
+                { translate('Birkman Components', locale) }
+              </Text>
+              <Icon 
+                style={styles.slideDownButtonIcon} 
+                name={(profileIndex===3) ? icons[0] : icons[1]} />
+            </Button>
+          </Row>
+          {
+            (profileIndex === 3) && (
+              <Row style={styles.slideDown}>
+                <View style={styles.slideDownView} >
+                  <Button style={styles.profileButton}>
+                    <Text style={styles.profileButtonText}>
+                      { translate('SHARE', locale) }
+                    </Text>
+                    <Text style={styles.profileButtonTextSmall}>
+                      { translate('my Birkman Report', locale) }
+                    </Text>
+                  </Button>
+                  <Button 
+                    transparent 
+                    style={styles.profileHelpButton} >
+                    <Text style={styles.profileHelpButtonText}>
+                      { translate('Need Help?', locale) }
+                    </Text>
+                    <Text style={styles.profileHelpButtonTextSmall}>
+                      { translate('Get help interpreting your Birkman.', locale) }
+                    </Text>
+                  </Button>
+                </View>
+              </Row>
+            )
+          }
+        </Grid>
+      )
+    }
   }
   renderTabTasks = (locale) => {
     let tasks = [

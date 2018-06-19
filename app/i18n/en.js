@@ -104,4 +104,7 @@ export default {
 	'Contact Info': 'Contact Info',
 	'Edit': 'Edit',
 	'Preferred Name': 'Preferred Name',
+	'Birkman Map': 'Birkman Map',
+	'Birkman Interests': 'Birkman Interests',
+	'Birkman Components': 'Birkman Components',
 };

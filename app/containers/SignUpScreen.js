@@ -192,6 +192,7 @@ class SignUpScreen extends React.Component {
       chapter: '',
       nextButtonValidate: false,
       errorMessages: [],
+      errorShow: false,
       alertVisible: false,
       currentSlide: 0,
       jobType: 0,
@@ -297,10 +298,10 @@ class SignUpScreen extends React.Component {
 			result[4] = translate('Input password', locale);
 			validate = false;
 		}
-		else if (password.length < 8){
-			result[4] = translate('Input at least 8 characters', locale);	
-			validate = false;
-		}
+		// else if (password.length < 8){
+		// 	result[4] = translate('Input at least 8 characters', locale);	
+		// 	validate = false;
+		// }
 		if (passwordConfirm == '' || passwordConfirm != password){
 			result[5] = translate('Input the same confirm password', locale);
 			validate = false;
@@ -321,7 +322,10 @@ class SignUpScreen extends React.Component {
 			result[9] = translate('Input chapter', locale);
 			validate = false;
 		}
-		this.setState({ errorMessage: result, nextButtonValidate: validate });	
+		this.setState({ errorMessages: result, 
+				nextButtonValidate: validate,
+				errorShow: false 
+			});	
 		return validate;
 	}
   handleChange = (name, val) => {
@@ -339,6 +343,9 @@ class SignUpScreen extends React.Component {
   	if (nextButtonValidate)
   	{
 			this.showAlert(true);
+  	}
+  	else{
+  		this.setState({ errorShow: true });
   	}
   }
   generateCode = () => {
@@ -366,6 +373,7 @@ class SignUpScreen extends React.Component {
   }
   componentDidMount = () => {
   	this.props.actions.registerInit();
+  	this.checkValidataion();
   }
   componentWillReceiveProps = (nextProps) => {
 		const { register } = nextProps;
@@ -403,7 +411,9 @@ class SignUpScreen extends React.Component {
 				inviteCode,
 				showSuccessAlert,
 				showFailureAlert,
-				registerRequest
+				registerRequest,
+				errorMessages,
+				errorShow,
 			} = this.state;
 
     return (
@@ -424,6 +434,7 @@ class SignUpScreen extends React.Component {
 									onChangeText={v => this.handleChange('firstName', v)}
 	              />
 	            </Item>
+							{ (errorShow && errorMessages[0]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[0] } /></Item> ) }
 							<Item>
 	              <Input
 	              	style={styles.input}
@@ -431,6 +442,7 @@ class SignUpScreen extends React.Component {
 									onChangeText={v => this.handleChange('lastName', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[1]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[1] } /></Item> ) }
 	            <Item>
 	              <Input
 	              	style={styles.input}
@@ -438,6 +450,7 @@ class SignUpScreen extends React.Component {
 									onChangeText={v => this.handleChange('emailAddress', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[2]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[2] } /></Item> ) }
 	            <Item>
 	              <Input
 	              	style={styles.input}
@@ -445,6 +458,7 @@ class SignUpScreen extends React.Component {
 									onChangeText={v => this.handleChange('userName', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[3]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[3] } /></Item> ) }
 							<Item>
 	              <Input
 	              	style={styles.input}
@@ -453,6 +467,7 @@ class SignUpScreen extends React.Component {
 									onChangeText={v => this.handleChange('password', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[4]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[4] } /></Item> ) }
 							<Item>
 	              <Input
 	              	style={styles.input}
@@ -461,30 +476,35 @@ class SignUpScreen extends React.Component {
 									onChangeText={v => this.handleChange('passwordConfirm', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[5]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[5] } /></Item> ) }
 							<Item>
 	              <Input
 	                placeholder={translate('Phone Number', locale) + '*'}
 									onChangeText={v => this.handleChange('phoneNumber', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[6]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[6] } /></Item> ) }
 	            <Item>
 	              <Input
 	                placeholder={translate('School', locale)}
 									onChangeText={v => this.handleChange('school', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[7]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[7] } /></Item> ) }
 	            <Item>
 	              <Input
 	                placeholder={translate('Objective', locale)}
 									onChangeText={v => this.handleChange('objective', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[8]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[8] } /></Item> ) }
 	            <Item>
 	              <Input
 	                placeholder={translate('Chapter', locale)}
 									onChangeText={v => this.handleChange('chapter', v)}
 	              />
 	            </Item>
+	            { (errorShow && errorMessages[9]) && (<Item style={{paddingTop: 10,}}><Messages message={ errorMessages[9] } /></Item> ) }
 	            <Spacer size={20} />
 	            <Text style={styles.note}>*We will provide to others in your community.</Text>
 	            <Spacer size={8} />

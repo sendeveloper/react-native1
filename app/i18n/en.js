@@ -93,5 +93,12 @@ export default {
 	'Need Help?': 'Need Help?',
 	'Get help interpreting your Birkman.': 'Get help interpreting your Birkman.',
 	'Most Recent Activity': 'Most Recent Activity',
+	'TUES': 'TUES',
+	'June': 'June',
+	'Task': 'Task',
+	'Phone Call': 'Phone Call',
+	'Duration': 'Duration',
+	'Action': 'Action',
+	'Detail': 'Detail',
 	
 };

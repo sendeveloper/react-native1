@@ -150,27 +150,54 @@ const styles = StyleSheet.create({
     width: 222,
   },
   recentActivityTitleRow: {
-
+    height: 30,
+    width: '100%',
   },
   recentActivityTitleText: {
     color: '#7E888D',
     fontSize: 12,
+    paddingLeft: 10,
+    paddingTop: 13,
+    height: 30,
   },
   recentActivityRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     alignSelf: 'flex-start',
+    paddingTop: 10,
+    paddingLeft: 11,
+    paddingRight: 11,
+    paddingBottom: 10,
+  },
+  recentActivityRowView: {
+    padding: 10,
+    height: 40,
   },
   recentActivityRowImage: {
     flex: 1,
+    width: 20,
+    height: 20,
   },
   recentActivityRowInfo: {
-    flex: 1,
+    flex: 5,
+    paddingLeft: 15,
   },
   recentActivityRowInfoDate: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
+  recentActivityRowInfoDateWeekDay: {
+    fontSize: 7,
+    color: '#358a83',
+    paddingRight: 0,
+  },
+  recentActivityRowInfoDateDetail: {
     fontSize: 6,
     color: '#7E888D',
+    paddingLeft: 5,
   },
   recentActivityRowInfoWay: {
     fontSize: 10,
@@ -361,19 +388,122 @@ class InteractRumScreen extends Component {
           </Text>
         </Row>
         <Row style={styles.recentActivityRow}>
-          <Thumbnail
-            square
-            style={styles.recentActivityRowImage} 
-            source={require('../images/avatar1.jpg')} />
+          <View style={styles.recentActivityRowView}>
+            <Thumbnail
+              square
+              style={styles.recentActivityRowImage} 
+              source={require('../images/envelop.png')} />
+          </View>
           <View style={styles.recentActivityRowInfo} >
-            <Text style={styles.recentActivityRowInfoDate}>
-              { translate('My Mentor', locale) }
-            </Text>
+            <View style={styles.recentActivityRowInfoDate}>
+              <Text style={styles.recentActivityRowInfoDateWeekDay}>
+                { translate('TUES', locale) }
+              </Text>
+              <Text style={styles.recentActivityRowInfoDateDetail}>
+                { translate('June', locale) } 6, 2018
+              </Text>
+            </View>
             <Text style={styles.recentActivityRowInfoWay}>
-              { translate('Subtitle of some sort', locale) }
+              { translate('Email', locale) }
             </Text>
             <Text style={styles.recentActivityRowInfoMessage}>
-              { translate('Subtitle of some sort', locale) }
+              RE: Have you started interviewing for open positions?
+            </Text>
+          </View>
+        </Row>
+        <Row style={styles.recentActivityRow}>
+          <View style={styles.recentActivityRowView}>
+            <Thumbnail
+              square
+              style={styles.recentActivityRowImage} 
+              source={require('../images/tick.png')} />
+          </View>
+          <View style={styles.recentActivityRowInfo} >
+            <View style={styles.recentActivityRowInfoDate}>
+              <Text style={styles.recentActivityRowInfoDateWeekDay}>
+                { translate('TUES', locale) }
+              </Text>
+              <Text style={styles.recentActivityRowInfoDateDetail}>
+                { translate('June', locale) } 6, 2018
+              </Text>
+            </View>
+            <Text style={styles.recentActivityRowInfoWay}>
+              { translate('Task', locale) }
+            </Text>
+            <Text style={styles.recentActivityRowInfoMessage}>
+              Detail of task here
+            </Text>
+          </View>
+        </Row>
+        <Row style={styles.recentActivityRow}>
+          <View style={styles.recentActivityRowView}>
+            <Thumbnail
+              square
+              style={styles.recentActivityRowImage} 
+              source={require('../images/phone.png')} />
+          </View>
+          <View style={styles.recentActivityRowInfo} >
+            <View style={styles.recentActivityRowInfoDate}>
+              <Text style={styles.recentActivityRowInfoDateWeekDay}>
+                { translate('TUES', locale) }
+              </Text>
+              <Text style={styles.recentActivityRowInfoDateDetail}>
+                { translate('June', locale) } 6, 2018
+              </Text>
+            </View>
+            <Text style={styles.recentActivityRowInfoWay}>
+              { translate('Phone Call', locale) }
+            </Text>
+            <Text style={styles.recentActivityRowInfoMessage}>
+              { translate('Duration', locale) } 00:12:45
+            </Text>
+          </View>
+        </Row>
+        <Row style={styles.recentActivityRow}>
+          <View style={styles.recentActivityRowView}>
+            <Thumbnail
+              square
+              style={styles.recentActivityRowImage} 
+              source={require('../images/envelop.png')} />
+          </View>
+          <View style={styles.recentActivityRowInfo} >
+            <View style={styles.recentActivityRowInfoDate}>
+              <Text style={styles.recentActivityRowInfoDateWeekDay}>
+                { translate('TUES', locale) }
+              </Text>
+              <Text style={styles.recentActivityRowInfoDateDetail}>
+                { translate('June', locale) } 6, 2018
+              </Text>
+            </View>
+            <Text style={styles.recentActivityRowInfoWay}>
+              { translate('Action', locale) }
+            </Text>
+            <Text style={styles.recentActivityRowInfoMessage}>
+              { translate('Detail', locale) } 00:12:45
+            </Text>
+          </View>
+        </Row>
+        <Row style={styles.recentActivityRow}>
+          <View style={styles.recentActivityRowView}>
+            <Thumbnail
+              square
+              style={styles.recentActivityRowImage} 
+              source={require('../images/envelop.png')} />
+          </View>
+          <View style={styles.recentActivityRowInfo} >
+            <View style={styles.recentActivityRowInfoDate}>
+              <Text style={styles.recentActivityRowInfoDateWeekDay}>
+                { translate('TUES', locale) }
+              </Text>
+              <Text style={styles.recentActivityRowInfoDateDetail}>
+                { translate('June', locale) } 6, 2018
+              </Text>
+            </View>
+            <Text style={styles.recentActivityRowInfoWay}>
+              { translate('Action', locale) }
+            </Text>
+            <Text style={styles.recentActivityRowInfoMessage}>
+              { translate('Detail', locale) } 00:12:45
             </Text>
           </View>
         </Row>

@@ -22,6 +22,9 @@ import { StyleSheet, ImageBackground } from 'react-native';
 import NavigationBar from 'react-native-navbar';
 import { increment, decrement } from '../actions/counterActions';
 import { Actions } from 'react-native-router-flux';
+// import VideoPlayer from 'react-native-video-controls';
+import { Video } from 'expo';
+import VideoPlayer from '@expo/videoplayer';
 import { translate } from '../i18n';
 import { logout } from '../actions/loginActions';
 import CustomFooter from '../components/CustomFooter';
@@ -86,7 +89,9 @@ const styles = StyleSheet.create({
   showVideoView: {
     backgroundColor: '#333',
     height: 178,
-    marginTop: 10
+    marginTop: 10,
+    paddingTop: 0,
+    paddingBottom: 0,
   },
   subVideoViewText: {
     fontSize: 18,
@@ -97,16 +102,47 @@ const styles = StyleSheet.create({
   imageBackground: {
     width: '100%',
     height: '100%',
+  },
+  videoContainer: {
+    marginTop: 10,
+    width: '100%',
+    height: 178,
+  },
+  controlBar: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   }
 });
 class HomeScreen extends Component {
   state = {
-    activePage: 'actions'
+    activePage: 'actions',
+    videoState: 0,
+    shouldPlay: true,
   };
+  playVideo = () => {
+    let $this = this;
+    this.setState({ videoState: 1 });
+    // setTimeout(function() {
+    //   console.log($this.videoRef);
+    //   $this.videoRef.presentFullscreenPlayer();
+    // }, 500)
+  }
+  handlePlayAndPause = () => {
+    this.setState((prevState) => ({
+       shouldPlay: !prevState.shouldPlay  
+    }));
+  }
   render() {
     const locale = 'en';
     const { user } = this.props;
-    const { activePage } = this.state;
+    const { activePage, videoState } = this.state;
     let notification = {
       "title": "TOP Notification for User", 
       "content": "Subtitle of notification"
@@ -193,18 +229,39 @@ class HomeScreen extends Component {
                 </ImageBackground>
               </Button>
             </View>
-            <View style={styles.showVideoView}>
-              <ImageBackground 
-                style={styles.imageBackground} 
-                source={require('../images/videoViewBackground.jpg')} >
-                <Text style={styles.subVideoViewText}>
-                  {translate('Watch Video', locale)}
-                </Text>
-                <Text style={styles.subViewTextSmall}>
-                  {translate('Soft Skills the Five Things Employers Really Want', locale)}
-                </Text>
-              </ImageBackground>
-            </View>
+            {
+              (videoState === 0) ? 
+                (<Button 
+                  transparent 
+                  style={styles.showVideoView}
+                  onPress={ () => this.playVideo() }>
+                  <ImageBackground 
+                    style={styles.imageBackground} 
+                    source={require('../images/videoViewBackground.jpg')} >
+                    <Text style={styles.subVideoViewText}>
+                      {translate('Watch Video', locale)}
+                    </Text>
+                    <Text style={styles.subViewTextSmall}>
+                      {translate('Soft Skills the Five Things Employers Really Want', locale)}
+                    </Text>
+                  </ImageBackground>
+                </Button>) : 
+                (<View style={styles.videoContainer}>
+                  <Video
+                   source={ require('../images/a.mp4') }
+                   shouldPlay = { this.state.shouldPlay }
+                   resizeMode="cover"
+                   style={{ width: '100%', height: 178 }}
+                   ref={ref => this.videoRef = ref}
+                  />
+                  <View style={styles.controlBar}>
+                    <Icon 
+                      name={ (this.state.shouldPlay) ? "pause" : "play" } 
+                      onPress={this.handlePlayAndPause} 
+                    />
+                  </View>
+                </View>)
+            }
             <View style={styles.subViewContainer}>
               <Button 
                 transparent

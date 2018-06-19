@@ -10,7 +10,6 @@ export default {
 	'Phone Number': 'Phone Number',
 	'First Name': 'First Name',
 	'Last Name': 'Last Name',
-	'Phone Number': 'Phone Number',
 	'Confirm Password': 'Confirm Password',
 	'Next': 'Next',
 	'Input first name': 'Input first name',
@@ -103,4 +102,6 @@ export default {
 	'+ Add NEW Note': '+ Add NEW Note',
 	'+ Add NEW TASK': '+ Add NEW TASK',
 	'Contact Info': 'Contact Info',
+	'Edit': 'Edit',
+	'Preferred Name': 'Preferred Name',
 };

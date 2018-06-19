@@ -21,6 +21,8 @@ import {
   Grid,
   Row,
   Col,
+  Form,
+  Label,
 } from 'native-base';
 import { connect } from 'react-redux';
 import { StyleSheet, ImageBackground, Alert } from 'react-native';
@@ -42,66 +44,48 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignSelf: "center",
   },
-  backText: {
-    top: -1,
-    fontSize: 17,
-    color: '#F9F9F9',
-  },
   rumPhotoArea: {
     width: '100%',
-    height: 205,
+    height: 145,
   },
   rumBackground: {
     width: '100%',
     height: '100%',
   },
   rumPhoto: {
-    width: 80,
-    height: 80,
+    width: 60,
+    height: 60,
     marginTop: 11,
     alignSelf: 'center',
   },
   rumInfoName: {
-    color: '#053C5C',
+    color: '#335f7a',
     fontSize: 17,
     alignSelf: 'center',
     marginTop: 10,
     lineHeight: 19,
   },
   rumInfoDate: {
-    color: '#A1A1A1',
-    fontSize: 11,
+    color: '#7E888D',
+    fontSize: 8,
     alignSelf: 'center',
   },
-  rumInfoContact: {
+  rumInfoEdit: {
     alignSelf: 'center',
+    marginTop: 8,
     height: 20,
     paddingTop: 0,
     paddingBottom: 0,
   },
-  rumInfoContactText: {
-    color: '#053C5C',
-    fontSize: 11,
+  rumInfoEditText: {
+    color: '#358A83',
+    fontSize: 12,
   },
-  contactButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    width: 192,
-    alignSelf: 'center',
-    marginTop: 14,
+  formLabel: {
+    // fontSize: 10,
   },
-  contactButtonEach: {
-    width: 30,
-    height: 30,
-    marginLeft: 17,
-    marginRight: 17,
-    flex: 1
-  },
-  contactButtonImage: {
-    width: 30,
-    height: 30,
+  formInput: {
+    // fontSize: 12,
   },
 });
 class ContactInfoScreen extends Component {
@@ -114,11 +98,8 @@ class ContactInfoScreen extends Component {
   goBack = () => {
     this.props.navigation.dispatch(NavigationActions.back());
   }
-  contactChat = () => {
-    console.log('chat');
-  }
-  contactInfo = () => {
-    Actions.push('contact');
+  editProfile = () => {
+    console.log('Edit Profile');
   }
   renderView = (locale) => {
     return (
@@ -140,46 +121,38 @@ class ContactInfoScreen extends Component {
               </Text>
               <Button 
                 transparent 
-                style={styles.rumInfoContact}
-                onPress={() => this.contactInfo()}>
-                <Text style={styles.rumInfoContactText}>
-                  { translate('Contact Info', locale) }
+                style={styles.rumInfoEdit}
+                onPress={() => this.editProfile()}>
+                <Text style={styles.rumInfoEditText}>
+                  { translate('Edit', locale) }
                 </Text>
               </Button>
             </View>
-            <View style={styles.contactButtons}>
-              <Button
-                transparent
-                style={styles.contactButtonEach}
-                onPress={this.contactChat}
-                >
-                <Thumbnail
-                  square
-                  style={styles.contactButtonImage} 
-                  source={require('../images/rum_profile_chat.png')} />
-              </Button>
-              <Button
-                transparent
-                style={styles.contactButtonEach}
-                onPress={this.contactChat}
-                >
-                <Thumbnail
-                  square
-                  style={styles.contactButtonImage} 
-                  source={require('../images/rum_profile_call.png')} />
-              </Button>
-              <Button
-                transparent
-                style={styles.contactButtonEach}
-                onPress={this.contactChat}
-                >
-                <Thumbnail
-                  square
-                  style={styles.contactButtonImage} 
-                  source={require('../images/rum_profile_mail.png')} />
-              </Button>
-            </View>
           </ImageBackground>
+        </View>
+        <View style={styles.rumForm}>
+          <Form>
+            <Item floatingLabel>
+              <Label textStyle={styles.formLabel}>{ translate('First Name', locale) }</Label>
+              <Input style={styles.formInput} value={ "First" }/>
+            </Item>
+            <Item floatingLabel>
+              <Label>{ translate('Preferred Name', locale) }</Label>
+              <Input value={ "Preferred" }/>
+            </Item>
+            <Item floatingLabel>
+              <Label>{ translate('Last Name', locale) }</Label>
+              <Input value={ "Last" }/>
+            </Item>
+            <Item floatingLabel>
+              <Label>{ translate('Phone Number', locale) }</Label>
+              <Input value={ "(xxx) xxx-xxxx" } />
+            </Item>
+            <Item floatingLabel>
+              <Label>{ translate('Email', locale) }</Label>
+              <Input value={ "firstlast@company.com" }/>
+            </Item>
+          </Form>
         </View>
       </View>
     )
@@ -194,11 +167,10 @@ class ContactInfoScreen extends Component {
           <Left style={{ flex: 2 }}>
             <Button transparent onPress={this.goBack}>
               <Icon name="arrow-back" />
-              <Text style={styles.backText}>Interact</Text>
             </Button>
           </Left>
           <Body style={{ flex: 3 }}>
-            <Title style={styles.headerTitle}>{translate('RUM', locale)}</Title>
+            <Title style={styles.headerTitle}>{translate('Contact Info', locale)}</Title>
           </Body>
           <Right style={{ flex: 2 }}>
             <Button transparent onPress={this.props.logout}>

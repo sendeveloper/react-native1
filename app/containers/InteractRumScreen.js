@@ -74,9 +74,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   rumInfoContact: {
+    height: 20,
+    alignSelf: 'center',
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+  rumInfoContactText: {
     color: '#053C5C',
     fontSize: 11,
-    alignSelf: 'center',
   },
   contactButtons: {
     flexDirection: 'row',
@@ -339,6 +344,9 @@ class InteractRumScreen extends Component {
   contactChat = () => {
     console.log('chat');
   }
+  contactInfo = () => {
+    Actions.push('contact');
+  }
   renderView = (locale) => {
     return (
       <View>
@@ -357,9 +365,14 @@ class InteractRumScreen extends Component {
               <Text style={styles.rumInfoDate}>
                 Member since 06/06/2018
               </Text>
-              <Text style={styles.rumInfoContact}>
-                Contact Info
-              </Text>
+              <Button 
+                transparent 
+                style={styles.rumInfoContact}
+                onPress={() => this.contactInfo()}>
+                <Text style={styles.rumInfoContactText}>
+                  { translate('Contact Info', locale) }
+                </Text>
+              </Button>
             </View>
             <View style={styles.contactButtons}>
               <Button

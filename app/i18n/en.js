@@ -102,4 +102,5 @@ export default {
 	'Detail': 'Detail',
 	'+ Add NEW Note': '+ Add NEW Note',
 	'+ Add NEW TASK': '+ Add NEW TASK',
+	'Contact Info': 'Contact Info',
 };

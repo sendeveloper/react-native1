@@ -59,12 +59,18 @@ const styles = StyleSheet.create({
     width: '49%',
     height: 85,
     backgroundColor: '#333',
-    marginRight: '2%'
+    marginRight: '2%',
+    paddingTop: 0,
+    paddingBottom: 0,
+    borderRadius: 0,
   },
   subViewRight: {
     width: '49%',
     height: 85,
     backgroundColor: '#333',
+    paddingTop: 0,
+    paddingBottom: 0,
+    borderRadius: 0,
   },
   subViewText: {
     fontSize: 18,
@@ -133,7 +139,10 @@ class HomeScreen extends Component {
               )
             }
             <View style={styles.subViewContainer}>
-              <View style={styles.subViewLeft} >
+              <Button 
+                transparent
+                style={styles.subViewLeft} 
+                onPress={() => Actions.push('rum')}>
                 <ImageBackground 
                 style={styles.imageBackground} 
                 source={require('../images/subViewBackground.jpg')} >
@@ -141,8 +150,10 @@ class HomeScreen extends Component {
                     {translate('RUMs', locale)}
                   </Text>
                 </ImageBackground>
-              </View>
-              <View style={styles.subViewRight} >
+              </Button>
+              <Button 
+                transparent 
+                style={styles.subViewRight} >
                 <ImageBackground 
                 style={styles.imageBackground} 
                 source={require('../images/subViewBackground.jpg')} >
@@ -150,10 +161,12 @@ class HomeScreen extends Component {
                     {translate('Notifications', locale)}
                   </Text>
                 </ImageBackground>
-              </View>
+              </Button>
             </View>
             <View style={styles.subViewContainer}>
-              <View style={styles.subViewLeft} >
+              <Button 
+                transparent 
+                style={styles.subViewLeft} >
                 <ImageBackground 
                 style={styles.imageBackground} 
                 source={require('../images/subViewBackground.jpg')} >
@@ -164,8 +177,10 @@ class HomeScreen extends Component {
                     {translate('Set Milestones', locale)}
                   </Text>
                 </ImageBackground>
-              </View>
-              <View style={styles.subViewRight} >
+              </Button>
+              <Button 
+                transparent 
+                style={styles.subViewRight} >
                 <ImageBackground 
                 style={styles.imageBackground} 
                 source={require('../images/subViewBackground.jpg')} >
@@ -176,7 +191,7 @@ class HomeScreen extends Component {
                     {translate('Library', locale)}
                   </Text>
                 </ImageBackground>
-              </View>
+              </Button>
             </View>
             <View style={styles.showVideoView}>
               <ImageBackground 
@@ -191,7 +206,9 @@ class HomeScreen extends Component {
               </ImageBackground>
             </View>
             <View style={styles.subViewContainer}>
-              <View style={styles.subViewLeft} >
+              <Button 
+                transparent
+                style={styles.subViewLeft} >
                 <ImageBackground 
                 style={styles.imageBackground} 
                 source={require('../images/subViewBackground.jpg')} >
@@ -202,8 +219,10 @@ class HomeScreen extends Component {
                     {translate('Contact', locale)}
                   </Text>
                 </ImageBackground>
-              </View>
-              <View style={styles.subViewRight} >
+              </Button>
+              <Button 
+                transparent 
+                style={styles.subViewRight} >
                 <ImageBackground 
                 style={styles.imageBackground} 
                 source={require('../images/subViewBackground.jpg')} >
@@ -214,10 +233,12 @@ class HomeScreen extends Component {
                     {translate('Subtitle', locale)}
                   </Text>
                 </ImageBackground>
-              </View>
+              </Button>
             </View>
             <View style={styles.subViewContainer}>
-              <View style={styles.subViewLeft} >
+              <Button 
+                transparent 
+                style={styles.subViewLeft} >
                 <ImageBackground 
                 style={styles.imageBackground} 
                 source={require('../images/subViewBackground.jpg')} >
@@ -228,8 +249,10 @@ class HomeScreen extends Component {
                     {translate('Subtitle', locale)}
                   </Text>
                 </ImageBackground>
-              </View>
-              <View style={styles.subViewRight} >
+              </Button>
+              <Button 
+                transparent
+                style={styles.subViewRight} >
                 <ImageBackground 
                 style={styles.imageBackground} 
                 source={require('../images/subViewBackground.jpg')} >
@@ -240,7 +263,7 @@ class HomeScreen extends Component {
                     {translate('Subtitle', locale)}
                   </Text>
                 </ImageBackground>
-              </View>
+              </Button>
             </View>
           </View>
         </Content>

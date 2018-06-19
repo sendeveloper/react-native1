@@ -329,6 +329,7 @@ const styles = StyleSheet.create({
   },
   slideDown: {
     marginLeft: 25,
+    justifyContent: 'center',
   },
   slideDownButton: {
     paddingTop: 0,
@@ -354,6 +355,11 @@ const styles = StyleSheet.create({
     marginTop: 32,
     width: '100%',
     alignSelf: 'center',
+  },
+  birkmanMap: {
+    marginTop: 10,
+    width: 250,
+    height: 250,
   }
 });
 class InteractRumScreen extends Component {
@@ -549,10 +555,17 @@ class InteractRumScreen extends Component {
                 style={styles.slideDownButtonIcon} 
                 name={(profileIndex===1) ? icons[0] : icons[1]} />
             </Button>
-            <View>
-
-            </View>
           </Row>
+          {
+            (profileIndex === 1) && (
+              <Row style={styles.slideDown}>
+                <Thumbnail
+                  square
+                  style={styles.birkmanMap} 
+                  source={require('../images/birkman_map.jpg')} />
+              </Row>
+            )
+          }
           <Row style={styles.slideDown}>
             <Button 
               transparent
@@ -565,9 +578,6 @@ class InteractRumScreen extends Component {
                 style={styles.slideDownButtonIcon} 
                 name={(profileIndex===2) ? icons[0] : icons[1]} />
             </Button>
-            <View>
-              
-            </View>
           </Row>
           <Row style={styles.slideDown}>
             <Button 

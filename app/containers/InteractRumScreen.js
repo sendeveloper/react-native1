@@ -19,7 +19,8 @@ import {
   Tab,
   Tabs,
   Grid,
-  Row
+  Row,
+  Col,
 } from 'native-base';
 import { connect } from 'react-redux';
 import { StyleSheet, ImageBackground, Alert } from 'react-native';
@@ -207,6 +208,63 @@ const styles = StyleSheet.create({
     fontSize: 8,
     color: '#8C8C8C',
   },
+  addNewNote: {
+    justifyContent: 'center', 
+    alignItems: 'center',
+    height: 39,
+  },
+  addNewNoteButton: {
+    padding: 13,
+    width: 200,
+    height: 39,
+  },
+  addNewNoteButtonText: {
+    width: 174,
+    textAlign: 'center',
+    fontSize: 11,
+    color: '#053C5C',
+  },
+  noteList: {
+    paddingTop: 2,
+    paddingBottom: 2,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderBottomWidth: 1,
+    borderColor: '#C8C7CC',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
+  noteListLeftView: {
+    flex: 4,
+    paddingTop: 7,
+    paddingBottom: 7,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  noteListLeftViewText: {
+    color: '#8C8C8C',
+    fontSize: 10,
+  },
+  noteListButtons: {
+    alignItems: 'center',
+    paddingTop: 2,
+    paddingBottom: 2,
+  },
+  noteListButton: {
+    width: 16,
+    height: 16,
+    marginBottom: 12,
+  },
+  noteListButtonBottom: {
+    width: 16,
+    height: 16,
+  },
+  noteListButtonImage: {
+    width: 16,
+    height: 16,
+  },
 });
 class InteractRumScreen extends Component {
   state = {
@@ -373,21 +431,74 @@ class InteractRumScreen extends Component {
     )  
   }
   renderTabNotes = (locale) => {
+    let notes = [
+      {
+        id: 1,
+        text: 'Here is a note about this RUM. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque laoreet nisi nec dolor feugiat condimentum. Vestibulum cursus, odio sit amet molestie pharetra, dui est hendrerit quam, non iaculis urna leo id arcu. Duis nibh sapien, feugiat eu ullamcorper vel, dignissim ornare risus.',
+      },
+      {
+        id: 2,
+        text: 'Here is a shorter note about this RUM.'
+      },
+      {
+        id: 3,
+        text: 'Here is a note about this RUM. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque laoreet nisi nec dolor feugiat condimentum. Vestibulum cursus, odio sit amet molestie pharetra, dui est hendrerit quam, non iaculis urna leo id arcu. Duis nibh sapien, feugiat eu ullamcorper vel, dignissim ornare risus.'
+      },
+      {
+        id: 4,
+        text: 'Here is a note about this RUM. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque laoreet nisi nec dolor feugiat condimentum. Vestibulum cursus, odio sit amet molestie pharetra, dui est hendrerit quam, non iaculis urna leo id arcu. Duis nibh sapien, feugiat eu ullamcorper vel, dignissim ornare risus.'
+      },
+    ]
     return (
       <Grid>
-        <Text>Notes</Text>
+        <Row style={styles.addNewNote} size={0}>
+          <Button 
+            transparent 
+            style={styles.addNewNoteButton} >
+            <Text style={styles.addNewNoteButtonText}>{ translate('+ Add NEW Note', locale) }</Text>
+          </Button>
+        </Row>
+        {notes.map((x, i) =>
+          (
+            <Row style={styles.noteList} size={0} key={x.id}>
+              <View style={styles.noteListLeftView}>
+                <Text style={styles.noteListLeftViewText}>
+                  {x.text}
+                </Text>
+              </View>
+              <View style={styles.noteListButtons}>
+                <Button
+                  transparent
+                  style={styles.noteListButton}>
+                  <Thumbnail
+                    square
+                    style={styles.noteListButtonImage} 
+                    source={require('../images/edit.png')} />
+                </Button>
+                <Button
+                  transparent
+                  style={styles.noteListButtonBottom}>
+                  <Thumbnail
+                    square
+                    style={styles.noteListButtonImage} 
+                    source={require('../images/remove.png')} />
+                </Button>
+              </View>
+            </Row>
+          )
+        )}
       </Grid>
     )  
   }
   renderTabHistory = (locale) => {
     return (
       <Grid>
-        <Row style={styles.recentActivityTitleRow}>
+        <Row style={styles.recentActivityTitleRow} size={0}>
           <Text style={styles.recentActivityTitleText}>
             {translate('Most Recent Activity', locale)}
           </Text>
         </Row>
-        <Row style={styles.recentActivityRow}>
+        <Row style={styles.recentActivityRow} size={0}>
           <View style={styles.recentActivityRowView}>
             <Thumbnail
               square
@@ -411,7 +522,7 @@ class InteractRumScreen extends Component {
             </Text>
           </View>
         </Row>
-        <Row style={styles.recentActivityRow}>
+        <Row style={styles.recentActivityRow} size={0}>
           <View style={styles.recentActivityRowView}>
             <Thumbnail
               square
@@ -435,7 +546,7 @@ class InteractRumScreen extends Component {
             </Text>
           </View>
         </Row>
-        <Row style={styles.recentActivityRow}>
+        <Row style={styles.recentActivityRow} size={0}>
           <View style={styles.recentActivityRowView}>
             <Thumbnail
               square
@@ -459,7 +570,7 @@ class InteractRumScreen extends Component {
             </Text>
           </View>
         </Row>
-        <Row style={styles.recentActivityRow}>
+        <Row style={styles.recentActivityRow} size={0}>
           <View style={styles.recentActivityRowView}>
             <Thumbnail
               square
@@ -483,7 +594,7 @@ class InteractRumScreen extends Component {
             </Text>
           </View>
         </Row>
-        <Row style={styles.recentActivityRow}>
+        <Row style={styles.recentActivityRow} size={0}>
           <View style={styles.recentActivityRowView}>
             <Thumbnail
               square

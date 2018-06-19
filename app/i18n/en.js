@@ -100,5 +100,5 @@ export default {
 	'Duration': 'Duration',
 	'Action': 'Action',
 	'Detail': 'Detail',
-	
+	'+ Add NEW Note': '+ Add NEW Note',
 };

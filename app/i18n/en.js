@@ -101,4 +101,5 @@ export default {
 	'Action': 'Action',
 	'Detail': 'Detail',
 	'+ Add NEW Note': '+ Add NEW Note',
+	'+ Add NEW TASK': '+ Add NEW TASK',
 };

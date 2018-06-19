@@ -265,6 +265,62 @@ const styles = StyleSheet.create({
     width: 16,
     height: 16,
   },
+  addNewTask: {
+    justifyContent: 'center', 
+    alignItems: 'center',
+    height: 39,
+  },
+  addNewTaskButton: {
+    padding: 13,
+    width: 200,
+    height: 39,
+  },
+  addNewTaskButtonText: {
+    width: 174,
+    textAlign: 'center',
+    fontSize: 11,
+    color: '#053C5C',
+  },
+  taskList: {
+    paddingTop: 0,
+    paddingBottom: 13,
+    paddingLeft: 15,
+    paddingRight: 15,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+  },
+  taskListLeftView: {
+    flex: 1,
+  },
+  taskTickImage: {
+    width: 20,
+    height: 20,
+  },
+  taskListCenterView: {
+    flex: 4,
+  },
+  taskListCenterViewName: {
+    color: '#000000',
+    fontSize: 10,
+  },
+  taskListCenterViewText: {
+    color: '#8C8C8C',
+    fontSize: 8,
+  },
+  taskListButtons: {
+    flex: 1,
+  },
+  taskListButton: {
+    width: 16,
+    height: 16,
+    alignSelf: 'flex-end',  
+  },
+  taskListButtonImage: {
+    width: 16,
+    height: 16,
+  },
 });
 class InteractRumScreen extends Component {
   state = {
@@ -424,11 +480,103 @@ class InteractRumScreen extends Component {
     )  
   }
   renderTabTasks = (locale) => {
+    let tasks = [
+      {
+        id: 1,
+        tick: 0,
+        name: 'Email RUM to review resume.',
+        text: 'Ask for feedback on your recently updated resume.',
+      },
+      {
+        id: 2,
+        tick: 1,
+        name: 'Task Name',
+        text: 'Task detail',
+      },
+      {
+        id: 3,
+        tick: 1,
+        name: 'Task Name',
+        text: 'Task detail',
+      },
+      {
+        id: 4,
+        tick: 1,
+        name: 'Task Name',
+        text: 'Task detail',
+      },
+      {
+        id: 5,
+        tick: 0,
+        name: 'Task Name',
+        text: 'Task detail',
+      },
+      {
+        id: 6,
+        tick: 0,
+        name: 'Task Name',
+        text: 'Task detail',
+      },
+      {
+        id: 7,
+        tick: 0,
+        name: 'Task Name',
+        text: 'Task detail',
+      },
+      {
+        id: 8,
+        tick: 0,
+        name: 'Task Name',
+        text: 'Task detail',
+      },
+    ]
+    let ticks = [
+      require('../images/tick.png'),
+      require('../images/tick_disabled.png'),
+    ]
     return (
       <Grid>
-        <Text>Tasks</Text>
+        <Row style={styles.addNewTask} size={0}>
+          <Button 
+            transparent 
+            style={styles.addNewTaskButton} >
+            <Text style={styles.addNewTaskButtonText}>
+              { translate('+ Add NEW TASK', locale) }
+            </Text>
+          </Button>
+        </Row>
+        {tasks.map((x, i) =>
+          (
+            <Row style={styles.taskList} size={0} key={x.id}>
+              <View style={styles.taskListLeftView}>
+                <Thumbnail
+                    square
+                    style={styles.taskTickImage} 
+                    source={ticks[ x.tick ]} />
+              </View>
+              <View style={styles.taskListCenterView}>
+                <Text style={styles.taskListCenterViewName}>
+                  {x.name}
+                </Text>
+                <Text style={styles.taskListCenterViewText}>
+                  {x.text}
+                </Text>
+              </View>
+              <View style={styles.taskListButtons}>
+                <Button
+                  transparent
+                  style={styles.taskListButton}>
+                  <Thumbnail
+                    square
+                    style={styles.taskListButtonImage} 
+                    source={require('../images/remove.png')} />
+                </Button>
+              </View>
+            </Row>
+          )
+        )}
       </Grid>
-    )  
+    )
   }
   renderTabNotes = (locale) => {
     let notes = [
@@ -488,7 +636,7 @@ class InteractRumScreen extends Component {
           )
         )}
       </Grid>
-    )  
+    )
   }
   renderTabHistory = (locale) => {
     return (

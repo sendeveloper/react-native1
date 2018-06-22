@@ -400,6 +400,7 @@ class SignUpScreen extends React.Component {
 
   render() {
     // const { loading, error, locale } = this.props;
+
     // if (loading) return <Loading />;
 		const locale = 'en';
 		const { register } = this.props;

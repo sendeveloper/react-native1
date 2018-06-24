@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
     height: 20
   },
 });
+
 class InteractScreen extends Component {
   state = {
     activePage: 'interact',

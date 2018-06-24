@@ -8,14 +8,6 @@ import Header from '../components/Header';
 import Spacer from '../components/Spacer';
 
 class PolicyScreen extends React.Component {
-  // static propTypes = {
-  //   member: PropTypes.shape({
-  //     email: PropTypes.string,
-  //   }),
-  //   error: PropTypes.string,
-  //   loading: PropTypes.bool.isRequired,
-  //   onFormSubmit: PropTypes.func.isRequired,
-  // }
 
   static defaultProps = {
     error: null,

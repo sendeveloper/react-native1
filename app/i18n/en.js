@@ -5,7 +5,6 @@ export default {
   'Confirm Password': 'Confirm Password',
   Signup: 'Sign Up',
   ForgotPassword: 'Forgot Password?',
-
  	'Email Address': 'Email Address',
 	'Phone Number': 'Phone Number',
 	'First Name': 'First Name',

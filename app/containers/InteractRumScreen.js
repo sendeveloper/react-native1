@@ -431,7 +431,16 @@ class InteractRumScreen extends Component {
                   style={styles.contactButtonImage} 
                   source={require('../images/rum_profile_call.png')} />
               </Button>
-              
+              <Button
+                transparent
+                style={styles.contactButtonEach}
+                onPress={this.contactChat}
+                >
+                <Thumbnail
+                  square
+                  style={styles.contactButtonImage} 
+                  source={require('../images/rum_profile_mail.png')} />
+              </Button>
             </View>
           </ImageBackground>
         </View>
